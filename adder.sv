@@ -1,6 +1,6 @@
 module adder (
     input  logic [31:0] a,
-    input  logic        b,
+    input  logic [31:0] b,
     output logic [32:0] c
 );
 
