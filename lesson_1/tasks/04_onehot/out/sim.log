@@ -1,0 +1,95 @@
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 10.7c linux_x86_64 Aug 17 2018
+# //
+# //  Copyright 1991-2018 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# vsim -gui work.testbench -do "questa.tcl" -voptargs="+acc" -l 04_onehot/out/sim.log -wlf 04_onehot/out/sim.wlf 
+# Start time: 01:33:25 on May 05,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.bin_to_onehot(fast)
+# do questa.tcl
+# GOOD bin =  0 , onehot[ 0] = 1 
+# GOOD bin =  1 , onehot[ 1] = 1 
+# GOOD bin =  2 , onehot[ 2] = 1 
+# GOOD bin =  3 , onehot[ 3] = 1 
+# GOOD bin =  4 , onehot[ 4] = 1 
+# GOOD bin =  5 , onehot[ 5] = 1 
+# GOOD bin =  6 , onehot[ 6] = 1 
+# GOOD bin =  7 , onehot[ 7] = 1 
+# GOOD bin =  8 , onehot[ 8] = 1 
+# GOOD bin =  9 , onehot[ 9] = 1 
+# GOOD bin = 10 , onehot[10] = 1 
+# GOOD bin = 11 , onehot[11] = 1 
+# GOOD bin = 12 , onehot[12] = 1 
+# GOOD bin = 13 , onehot[13] = 1 
+# GOOD bin = 14 , onehot[14] = 1 
+# GOOD bin = 15 , onehot[15] = 1 
+# GOOD bin = 16 , onehot[16] = 1 
+# GOOD bin = 17 , onehot[17] = 1 
+# GOOD bin = 18 , onehot[18] = 1 
+# GOOD bin = 19 , onehot[19] = 1 
+# GOOD bin = 20 , onehot[20] = 1 
+# GOOD bin = 21 , onehot[21] = 1 
+# GOOD bin = 22 , onehot[22] = 1 
+# GOOD bin = 23 , onehot[23] = 1 
+# GOOD bin = 24 , onehot[24] = 1 
+# GOOD bin = 25 , onehot[25] = 1 
+# GOOD bin = 26 , onehot[26] = 1 
+# GOOD bin = 27 , onehot[27] = 1 
+# GOOD bin = 28 , onehot[28] = 1 
+# GOOD bin = 29 , onehot[29] = 1 
+# GOOD bin = 30 , onehot[30] = 1 
+# GOOD bin = 31 , onehot[31] = 1 
+# GOOD bin = 32 , onehot[32] = 1 
+# GOOD bin = 33 , onehot[33] = 1 
+# GOOD bin = 34 , onehot[34] = 1 
+# GOOD bin = 35 , onehot[35] = 1 
+# GOOD bin = 36 , onehot[36] = 1 
+# GOOD bin = 37 , onehot[37] = 1 
+# GOOD bin = 38 , onehot[38] = 1 
+# GOOD bin = 39 , onehot[39] = 1 
+# GOOD bin = 40 , onehot[40] = 1 
+# GOOD bin = 41 , onehot[41] = 1 
+# GOOD bin = 42 , onehot[42] = 1 
+# GOOD bin = 43 , onehot[43] = 1 
+# GOOD bin = 44 , onehot[44] = 1 
+# GOOD bin = 45 , onehot[45] = 1 
+# GOOD bin = 46 , onehot[46] = 1 
+# GOOD bin = 47 , onehot[47] = 1 
+# GOOD bin = 48 , onehot[48] = 1 
+# GOOD bin = 49 , onehot[49] = 1 
+# GOOD bin = 50 , onehot[50] = 1 
+# GOOD bin = 51 , onehot[51] = 1 
+# GOOD bin = 52 , onehot[52] = 1 
+# GOOD bin = 53 , onehot[53] = 1 
+# GOOD bin = 54 , onehot[54] = 1 
+# GOOD bin = 55 , onehot[55] = 1 
+# GOOD bin = 56 , onehot[56] = 1 
+# GOOD bin = 57 , onehot[57] = 1 
+# GOOD bin = 58 , onehot[58] = 1 
+# GOOD bin = 59 , onehot[59] = 1 
+# GOOD bin = 60 , onehot[60] = 1 
+# GOOD bin = 61 , onehot[61] = 1 
+# GOOD bin = 62 , onehot[62] = 1 
+# ** Error: BAD
+#    Time: 640 ns  Scope: testbench File: 04_onehot/testbench.sv Line: 51
+# Summary:
+# Binary: 100.000%
+# ** Note: $stop    : 04_onehot/checker.svh(18)
+#    Time: 640 ns  Iteration: 2  Instance: /testbench
+# Break in Module testbench at 04_onehot/checker.svh line 18
+# Saving coverage database on exit...
+# End time: 01:38:39 on May 05,2024, Elapsed time: 0:05:14
+# Errors: 1, Warnings: 0

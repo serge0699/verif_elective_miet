@@ -37,7 +37,22 @@ module testbench;
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
     //------------------------------------------------------------
-
+    event ev;
+    initial begin
+        for (integer i = 0; i<64; i++) begin
+        #9
+        bin = i;
+        #1; ->> ev;
+        end
+    end
+    initial begin
+        while(1) begin
+            @ev;
+            if( onehot[bin] != 1'b1 ) $error("BAD");
+            else $display("GOOD bin = %d , onehot[%d] = 1 ", bin,bin);
+            if(bin == 63) -> gen_done;
+        end
+    end
     //------------------------------------------------------------
-
+    
 endmodule
