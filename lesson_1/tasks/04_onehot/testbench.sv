@@ -9,6 +9,8 @@ module testbench;
     // Определите разрядность выходного
     // one-hot сигнала
     logic [63:0] onehot;
+    logic [63:0] exp_onehot;
+    
 
     // Тестируемый модуль: one-hot кодировщик
     // Соответствие выхода входу:
@@ -37,7 +39,18 @@ module testbench;
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
     //------------------------------------------------------------
+    
+    initial begin
+        for (int i = 0; i < 64; i++) begin
+            bin = i; 
+            #10;
+            exp_onehot    = '0; 
+            exp_onehot[i] = 1'b1; 
 
-    //------------------------------------------------------------
+
+            $display("Input: %d, Expected onehot: %b, Actual onehot: %b, Correct: %s",
+                     bin, exp_onehot, onehot, (onehot == exp_onehot) ? "Correct" : "Uncorrect");
+        end
+    end
 
 endmodule
