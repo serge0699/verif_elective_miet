@@ -3,11 +3,11 @@
 module testbench;
 
     localparam BIN_LENGTH = 6;
-    localparam ONEHOT_LENGTH = (2**BIN_LENGTH)-1;
+    localparam ONEHOT_LENGTH = (2**BIN_LENGTH);
 
     // 5-битный входной сигнал
     logic [BIN_LENGTH-1:0] bin;
-    // 6'b111111 = 63 => ONEHOT_LENGTH = (2 **  BIN_LENGTH) - 1
+    // 6'b111111 = 63
     // TODO:
     // Определите разрядность выходного
     // one-hot сигнала
