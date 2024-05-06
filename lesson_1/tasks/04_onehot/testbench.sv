@@ -2,13 +2,16 @@
 
 module testbench;
 
-    // 5-битный входной сигнал
-    logic [5:0] bin;
+    localparam BIN_LENGTH = 6;
+    localparam ONEHOT_LENGTH = (2**BIN_LENGTH)-1;
 
+    // 5-битный входной сигнал
+    logic [BIN_LENGTH-1:0] bin;
+    // 6'b111111 = 63 => ONEHOT_LENGTH = (2 **  BIN_LENGTH) - 1
     // TODO:
     // Определите разрядность выходного
     // one-hot сигнала
-    logic [63:0] onehot;
+    logic [ONEHOT_LENGTH-1:0] onehot;
 
     // Тестируемый модуль: one-hot кодировщик
     // Соответствие выхода входу:
@@ -18,7 +21,7 @@ module testbench;
     // ...
     // bin = 63 | onehot = 1...000
     bin_to_onehot DUT (
-        .bin  ( bin  ),
+        .bin    ( bin    ),
         .onehot ( onehot )
     );
 
@@ -35,9 +38,31 @@ module testbench;
     // после завершения симуляции).
 
     // Пишите внутри этого блока. Можно использовать подход из
-    // нескольких initial, можно из одного. 
+    // нескольких initial, можно из одного.
     //------------------------------------------------------------
+    logic [ONEHOT_LENGTH-1:0] ref_onehot;
+    int err_cnt;
+    logic is_error;
 
+    assign is_error = |(onehot ^ ref_onehot);
+
+    initial begin
+        #1;
+        for(int i = 0; i < 2**BIN_LENGTH; i++) begin
+            bin = i;
+            ref_onehot = 'b1 << i;
+            #1;
+            if(onehot !== ref_onehot) begin
+                err_cnt++;
+                $display("(%0t) Onehot miscompare! res: 0x%0h, exp: 0x%0h;", $time(), onehot, ref_onehot);
+            end
+        end
+        if(!err_cnt)
+            $display("SUCCESS!");
+        else
+            $display("FAILURE! Total number of errors: %0d", err_cnt);
+        $stop();
+    end
     //------------------------------------------------------------
 
 endmodule
