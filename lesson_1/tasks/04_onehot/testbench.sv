@@ -37,9 +37,10 @@ module testbench;
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
     //------------------------------------------------------------
+    localparam MAX_BIT = 64 ;
     event ev;
     initial begin
-        for (integer i = 0; i<64; i++) begin
+        for (int i = 0; i<MAX_BIT; i++) begin
         #9
         bin = i;
         #1; ->> ev;
@@ -48,8 +49,31 @@ module testbench;
     initial begin
         while(1) begin
             @ev;
-            if( onehot[bin] != 1'b1 ) $error("BAD");
-            else $display("GOOD bin = %d , onehot[%d] = 1 ", bin,bin);
+            if( onehot[bin] === 1'b1 ) begin
+                automatic int left = bin + 1;
+                automatic int right      = 0;
+                automatic int left_ones  = 0;
+                automatic int right_ones = 0;
+                for (int i = left; i < MAX_BIT; i++) begin
+                    if (onehot[i] === 1'b1) begin
+                        left_ones = 1;
+                        $error("BAD");
+                        break;
+                    end
+                end
+                for (int i = right; i < bin; i++) begin
+                    if (onehot[i] === 1'b1) begin
+                        right_ones = 1;
+                        $error("BAD");
+                        break;
+                    end
+                end
+                if(left_ones === 0 && right_ones === 0) begin
+                    $display("GOOD bin = %d , onehot[%d] = 1 ", bin,bin);
+                end
+                
+            end 
+            else $error("BAD");
             if(bin == 63) -> gen_done;
         end
     end
