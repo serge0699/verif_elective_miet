@@ -1,0 +1,68 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/user/verif_elective_miet_copy/lesson_1/tasks
+T_opt
+!s110 1715103202
+V@P@C=5zh7OE[1Z?[UCSB42
+04 9 4 work testbench fast 0
+=1-0800279d16ec-663a65e2-6770f-ffe
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.7c;67
+vtestbench
+Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
+Z3 !s110 1715103197
+!i10b 1
+!s100 :<TNN1??QoFFnjB60P;O?1
+Ikm_HZM6g>eJHJgJba;Thc3
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s105 testbench_sv_unit
+S1
+R0
+w1715103142
+802_truth_table/testbench.sv
+F02_truth_table/testbench.sv
+F02_truth_table/generator.svh
+L0 3
+Z5 OL;L;10.7c;67
+r1
+!s85 0
+31
+Z6 !s108 1715103197.000000
+Z7 !s107 02_truth_table/generator.svh|02_truth_table/out/EXT_POSTFIX.none|02_truth_table/truth_table.sv|02_truth_table/testbench.sv|
+Z8 !s90 -sv|-work|work|02_truth_table/testbench.sv|02_truth_table/truth_table.sv|02_truth_table/out/EXT_POSTFIX.none|
+!i113 0
+Z9 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vtruth_table
+R2
+R3
+!i10b 1
+!s100 @H3?dIhl=8A:<d=6TL=g31
+I?PhdjzE=9OGA=oTa>3J[C0
+R4
+!s105 truth_table_sv_unit
+S1
+R0
+w1715102685
+802_truth_table/truth_table.sv
+F02_truth_table/truth_table.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1

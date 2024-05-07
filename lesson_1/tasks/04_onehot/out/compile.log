@@ -1,0 +1,15 @@
+** Warning: (vlib-34) Library already exists at "04_onehot/out/work".
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 04_onehot/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 20:47:43 on May 07,2024
+vlog -sv -work work 04_onehot/testbench.sv 04_onehot/bin_to_onehot.svp 04_onehot/out/EXT_POSTFIX.svp 
+-- Compiling module testbench
+-- Compiling module bin_to_onehot
+** Warning: 04_onehot/bin_to_onehot.svp(3): (vlog-2600) [RDGN] - Redundant digits in numeric literal.
+
+Top level modules:
+	testbench
+End time: 20:47:43 on May 07,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
