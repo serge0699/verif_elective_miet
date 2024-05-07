@@ -56,7 +56,38 @@ module testbench;
 
     // Пишите внутри этого блока
     //------------------------------------------------------------
-
+    logic [2:0] abc;
+     initial begin
+            logic _r;
+            while(1) begin
+                @(ev);
+        //r values were taken from the table
+            assign abc={a,b,c};
+            if(
+            (~a & ~b & ~c & ~r)
+            ||(~a & ~b & c & r)
+            ||(~a & b & ~c & r)
+            ||(~a & b & c & ~r)
+            ||(a & ~b & ~c & r)
+            ||(a & ~b & c & r)
+            ||(a & b & ~c & ~r)
+            ||(a & b & c & ~r)) begin
+                case(abc)
+                    3'b000: $display("000: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b001: $display("001: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b010: $display("010: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b011: $display("011: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b100: $display("100: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b101: $display("101: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b110: $display("110: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                    3'b111: $display("111: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                endcase
+            end
+                else begin
+                    $display("Error: a:%1b, b: %1b, c: %1b, r: %1b", a, b, c, r);
+                end
+            end
+        end
     //------------------------------------------------------------
 
 endmodule
