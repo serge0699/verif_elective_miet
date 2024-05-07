@@ -22,6 +22,7 @@ module testbench;
         .onehot ( onehot )
     );
 
+    
     `include "checker.svh"
 
     // TODO:
@@ -36,8 +37,21 @@ module testbench;
 
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
-    //------------------------------------------------------------
+    //----------------------------------------------------------
 
+        initial begin
+        for (int i = 0; i <= 63; i++) begin
+                bin = i;
+                #100; 
+                if(onehot == (1 << i)) begin 
+                    $display("Success: bin:%1d, onehot:%1b", bin, onehot);
+                end
+                else begin
+                    $display("Error: bin:%1d, onehot:%1b", bin, onehot);
+                end
+            end
+        end
+   
     //------------------------------------------------------------
 
 endmodule
