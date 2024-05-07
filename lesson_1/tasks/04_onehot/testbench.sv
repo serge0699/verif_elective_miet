@@ -36,21 +36,8 @@ module testbench;
 
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
-    event ev;
-    logic [63:0] tb_onehot;
-    initial begin
-        for (int i = 0; i < 64; i = i + 1) begin
-            bin = i;
-            #1
-            ->>ev;
-            #9;
-        end
-    end
-    initial begin
-        while (1) begin
-            @ev;
-            tb_onehot = 1 << bin;
-            if (tb_onehot == onehot) $display("ok");
-        end
-    end
+    //------------------------------------------------------------
+
+    //------------------------------------------------------------
+
 endmodule
