@@ -1,0 +1,17 @@
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 04_sum/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 15:30:15 on May 04,2024
+vlog -sv -work work 04_sum/sum.sv 04_sum/testbench.sv 04_sum/out/EXT_POSTFIX.none 
+-- Compiling module sum
+** Warning: 04_sum/testbench.sv(1): (vlog-2283) Extra semicolon in $unit (global) scope.
+** Warning: 04_sum/testbench.sv(27): (vlog-2284) Empty $unit scope found.
+-- Compiling package testbench_sv_unit
+-- Compiling module testbench
+** Warning: 04_sum/out/EXT_POSTFIX.none(1): (vlog-2284) Empty $unit scope found.
+
+Top level modules:
+	testbench
+End time: 15:30:15 on May 04,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 3

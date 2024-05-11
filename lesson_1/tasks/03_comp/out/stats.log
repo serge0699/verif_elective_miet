@@ -1,0 +1,6 @@
+QuestaSim-64 vcover 10.7c Coverage Utility 2018.08 Aug 17 2018
+Start time: 17:13:45 on May 04,2024
+vcover report -details -html -htmldir 03_comp/out/stats 03_comp/out/cov.ucdb 
+Report created in 03_comp/out/stats/index.html
+End time: 17:13:46 on May 04,2024, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

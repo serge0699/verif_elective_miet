@@ -37,7 +37,24 @@ module testbench;
     // Пишите внутри этого блока. Можно использовать подход из
     // нескольких initial, можно из одного. 
     //------------------------------------------------------------
-
+    initial begin
+        logic [5:0] range = 1;
+        logic [63:0] eq;
+        bin = 1; #1ns;
+        while( bin != 63) begin
+            eq = onehot;
+            while( (eq % 2) != 1) begin       
+                eq = eq / 2;
+                range = range + 1;
+            end   
+            $display("bin = ",bin ," range = ", range," onehot: %d ", onehot);
+            for ( int i = 0; i <= 64; i++ ) begin
+                bin = bin + 1; #1ns;
+                range = 1;
+                break;
+            end
+        end
+    end
     //------------------------------------------------------------
 
 endmodule

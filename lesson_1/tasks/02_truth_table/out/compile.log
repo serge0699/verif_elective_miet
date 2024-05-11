@@ -1,0 +1,14 @@
+** Warning: (vlib-34) Library already exists at "02_truth_table/out/work".
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 02_truth_table/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 01:57:26 on May 11,2024
+vlog -sv -work work 02_truth_table/testbench.sv 02_truth_table/truth_table.sv 02_truth_table/out/EXT_POSTFIX.none 
+-- Compiling module testbench
+-- Compiling module truth_table
+
+Top level modules:
+	testbench
+End time: 01:57:26 on May 11,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

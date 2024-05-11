@@ -1,0 +1,5 @@
+var g_db_data = [
+{dummy:0},
+{name:'sum_cg',f:1,type:6,id:5,tb:'16',h:'15',m:'1',hp:'93.75%',cov:['93.75%','G'],g:'100.00%',gp:['93.75%','G'],hdlPath:'/testbench',parent:'4'},
+{name:'sum_cg',f:1,type:6,id:5,tb:'16',h:'15',m:'1',hp:'93.75%',cov:['93.75%','G'],g:'100.00%',gp:['93.75%','G'],hdlPath:'/testbench',parent:'4'}];
+processConsCovergroupsData(g_db_data);

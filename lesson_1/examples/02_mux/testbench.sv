@@ -16,10 +16,10 @@ module testbench;
 
         a   = 0;
         b   = 1;
-        sel = 1;
+        sel = 0;
 
         #20ns;
-        if(c !== 1) $error("BAD");
+        if(c != 1) $error("BAD");
         $stop();
 
     end

@@ -1,0 +1,9 @@
+QuestaSim-64 vcover 10.7c Coverage Utility 2018.08 Aug 17 2018
+Start time: 17:07:34 on May 04,2024
+vcover report -details -html -htmldir 02_comp/out/stats 02_comp/out/cov.ucdb 
+** Error: (vcover-7) Failed to open UCDB file "02_comp/out/cov.ucdb" in read mode.
+** Error: (vcover-17304) Invalid UCDB file 02_comp/out/cov.ucdb.
+Check if the file exists and the file isn't empty or corrupted.
+Also, make sure that the current user has read access to the file.
+End time: 17:07:36 on May 04,2024, Elapsed time: 0:00:02
+Errors: 2, Warnings: 0

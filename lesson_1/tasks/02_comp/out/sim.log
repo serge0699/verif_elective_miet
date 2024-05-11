@@ -1,0 +1,25 @@
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 10.7c linux_x86_64 Aug 17 2018
+# //
+# //  Copyright 1991-2018 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# vsim -gui work.testbench -do "questa.tcl" -voptargs="+acc" -l 02_comp/out/sim.log -wlf 02_comp/out/sim.wlf 
+# Start time: 17:07:28 on May 04,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: (vopt-13130) Failed to find design unit testbench.
+#         Searched libraries:
+#             work
+# Optimization failed
+# Error loading design
+# End time: 17:07:29 on May 04,2024, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 0

@@ -1,0 +1,14 @@
+** Warning: (vlib-34) Library already exists at "01_sum/out/work".
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 01_sum/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 15:08:18 on May 04,2024
+vlog -sv -work work 01_sum/sum.sv 01_sum/testbench.sv 01_sum/out/EXT_POSTFIX.none 
+-- Compiling module sum
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+End time: 15:08:18 on May 04,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
