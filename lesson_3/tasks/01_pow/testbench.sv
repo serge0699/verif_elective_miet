@@ -18,6 +18,9 @@ module testbench;
     logic        m_tid;
 
 
+    logic  [31:0] data_in, data_real, data_ref;
+    logic         id_real, id_ref;
+
     // Модуль для тестирования
     pow DUT(
         .clk      ( clk       ),
@@ -64,7 +67,7 @@ module testbench;
         repeat(1000) begin
             @(posedge clk);
             s_tvalid <= 1;
-            s_tdata  <= $urandom();
+            s_tdata  <= $urandom_range(0, 5);
             s_tid    <= $urandom();
             do begin
                 @(posedge clk);
@@ -135,12 +138,26 @@ module testbench;
     //     data, data_ref);
     //
     initial begin
+
         packet in_p, out_p;
         forever begin
             in_mbx.get(in_p);
             out_mbx.get(out_p);
             // Пишите здесь.
+            id_ref    = in_p.tid;
+            id_real   = out_p.tid;
 
+            data_in   = in_p.tdata;
+            data_ref  = in_p.tdata ** 5;
+            data_real = out_p.tdata;
+            $display("==============================================");
+            if(id_real !== id_ref) begin
+                $error("(%0t) Invalid tid:\nReal: %0h\nExp:  %0h", $time(), id_real, id_ref);
+            end
+
+            if(data_real !== data_ref) begin
+                $error("(%0t) Invalid tdata:\nReal: %0h\nExp:  %0h", $time(), data_real, data_ref);
+            end
         end
     end
 
