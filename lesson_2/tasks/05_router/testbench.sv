@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+`timescale 1ns/1ps
+=======
 `timescale 1ns/100ps
+>>>>>>> 769a96cc8924089df6af59b00273aba374cf00b8
 
 module testbench;
 
@@ -11,6 +15,12 @@ module testbench;
     logic       [3:0] in;
     logic       [3:0] out;
 
+<<<<<<< HEAD
+    int transact_cnt;           // number of test transaction
+    int sel_cur;                // current selection signal
+    int in_cur;
+    int out_cur;
+=======
     int         transact_cnt;   // number of test transaction
     int         transact_bad_cnt;
     int         sel_0_bad_cnt;
@@ -29,6 +39,7 @@ module testbench;
     } packet;
 
     mailbox#(packet) mon2chk = new();
+>>>>>>> 769a96cc8924089df6af59b00273aba374cf00b8
 
     router DUT(
         .clk     ( clk     ),
@@ -69,6 +80,15 @@ module testbench;
     initial begin
         // Входные воздействия опишите здесь.
         wait(aresetn);
+<<<<<<< HEAD
+        repeat(10) begin
+            @(posedge clk);
+            in  <= $urandom();
+            sel <= $urandom();
+        end
+
+        @(posedge clk);
+=======
         repeat(5) begin
             @(posedge clk);
             in  <= $urandom();
@@ -83,6 +103,7 @@ module testbench;
             rand_transact();
         end
         show_stat();
+>>>>>>> 769a96cc8924089df6af59b00273aba374cf00b8
         $stop();
     end
 
@@ -113,11 +134,33 @@ module testbench;
         logic [3:0] in_cur;
         logic [3:0] out_routed;
         packet pkt_prev, pkt_cur;
+
         wait(aresetn);
         mon2chk.get(pkt_prev);
         forever begin
             transact_cnt++;
             mon2chk.get(pkt_cur);
+<<<<<<< HEAD
+            // Пишите здесь
+            $display("\n============= Transaction #%0d ===============", transact_cnt);
+            for(int i = 0; i < 4; i++) begin
+                sel_cur = pkt_prev.sel[i][1:0];
+                in_cur  = pkt_prev.in[i];
+                out_cur = pkt_cur.out[i];
+                if( in_cur !== pkt_cur.out[sel_cur] ) begin
+                    $display("----------------------------");
+                    $error("(%0t) Bad Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
+                    $time(), i, sel_cur, i, in_cur, sel_cur, out_cur);
+                end else begin
+                    $display("----------------------------");
+                    $display("(%0t) Good Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
+                    $time(), i, sel_cur, i, in_cur, sel_cur, out_cur);
+                end
+            end
+
+            pkt_prev = pkt_cur;
+            transact_cnt++;
+=======
             is_bad_transact = 0;
             // Пишите здесь
             $display("\n============= Transaction #%0d ===============", transact_cnt);
@@ -149,6 +192,7 @@ module testbench;
             );
             pkt_prev = pkt_cur;
             transact_bad_cnt = is_bad_transact ? (transact_bad_cnt+1) : transact_bad_cnt;
+>>>>>>> 769a96cc8924089df6af59b00273aba374cf00b8
         end
     end
 
