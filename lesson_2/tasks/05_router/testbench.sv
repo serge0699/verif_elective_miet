@@ -115,12 +115,12 @@ module testbench;
     // TODO:
     // Выполните проверку выходных сигналов
     initial begin
-        $display("(%0t) check before reset", $time());
+        // $display("(%0t) [TEST] check before reset", $time());
         wait(aresetn);
-        $display("(%0t) check after reset", $time());
+        // $display("(%0t) [TEST] check after reset", $time());
         mon2chk.get(pkt_prev);
         forever begin
-            $display("(%0t) Check forever loop", $time());
+            // $display("(%0t) [TEST] Check forever loop", $time());
             transact_cnt++;
             mon2chk.get(pkt_cur);
             is_correctness_unknown = 0;
@@ -139,23 +139,23 @@ module testbench;
             // Transaction detail info
             $display("\n============= Transaction #%0d ===============", transact_cnt);
             for(int i = 0; i < 4; i++) begin
-                $display("(%0t) Check for loop i=%0d", $time(), i);
+                // $display("(%0t) [TEST] Check for loop i=%0d", $time(), i);
                 sel_cur     = sel_all_cur[i][1:0];
                 in_cur      = in_all_cur[i];
                 out_routed  = out_all_cur[sel_cur];
 
                 if( in_cur !==  out_routed) begin
                     error_handler(i);
-                    $error("(%0t) Bad Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
+                    $error("(%0t) Bad Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d.",
                         $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
                 end
                 else begin
-                    $display("(%0t) Good Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
+                    $display("(%0t) Good Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d.",
                         $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
                 end
                 $display("----------------------------");
             end
-            $display("(%0t) Check after For loop", $time());
+            // $display("(%0t) [TEST] Check after For loop", $time());
             // Transaction summary
             if(is_bad_transact) begin
                 $display("Transaction #%0d FAILURE.", transact_cnt);
@@ -168,27 +168,27 @@ module testbench;
             else
                 $display("Transaction #%0d SUCCESS.", transact_cnt);
 
-            $display("In:  %b,\nSel: %0d%0d%0d%0d\nOut: %b",
-                pkt_prev.in,
+            $display("Sel: %0d%0d%0d%0d,\nIn:  %b,\nOut: %b.",
                 sel_all_cur[0],
                 sel_all_cur[1],
                 sel_all_cur[2],
                 sel_all_cur[3],
+                pkt_prev.in,
                 pkt_cur.out
             );
-            $display("(%0t) Check before preparation", $time());
+            // $display("(%0t) [TEST] Check before preparation", $time());
             // Preparing to the next transaction
             pkt_prev = pkt_cur;
-            $display("(%0t) Check after preparation", $time());
+            // $display("(%0t) [TEST] Check after preparation", $time());
         end
     end
 
     task rand_transact(int num_of_transactions = 1);
         repeat(num_of_transactions) begin
             logic [3:0][1:0] tmp;
-            $display("(%0t) rand_trans before posedge", $time());
+            // $display("(%0t) [TEST] rand_trans before posedge", $time());
             @(posedge clk);
-            $display("(%0t) rand_trans started!", $time());
+            // $display("(%0t) [TEST] rand_trans started!", $time());
             in  <= $urandom();
             std::randomize(tmp) with { unique{ tmp[0], tmp[1], tmp[2], tmp[3] }; };
             sel <= tmp;
