@@ -256,8 +256,10 @@ module testbench;
 
     // Slave
     initial begin
-        do_slave_drive();
-        do_slave_monitor();
+        fork
+            do_slave_drive();
+            do_slave_monitor();
+        join
     end
 
     // Проверка

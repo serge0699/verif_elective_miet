@@ -22,6 +22,8 @@ module testbench;
     logic        m_tid;
     logic        m_tlast;
 
+    int          cur_packet_size;
+
 
     //---------------------------------
     // Модуль для тестирования
@@ -93,8 +95,17 @@ module testbench;
     // Задача должна генерировать нужное количество
     // транзакций со случайной задержкой, причем последняя
     // транзакция должна иметь значение tlast == 1
-    task drive_master_packet(/*Аргументы.*/);
-        // Тело.
+    task drive_master_packet(int packet_size = 1);
+        // Solution in 3 lines
+
+        // repeat(packet_size-1)
+        //     drive_master($urandom_range(0, 5), 0);
+        // drive_master($urandom_range(0, 5), 1);
+
+        // Solution in 2 lines
+        for(int i = 0; i < packet_size; i++)
+            drive_master($urandom_range(0, 5), (i == (packet_size-1)));
+
     endtask
 
     task drive_master(int delay = 0, bit is_last = 0);
@@ -188,7 +199,8 @@ module testbench;
         reset_master();
         @(posedge clk);
         repeat(1000) begin
-            drive_master($urandom_range(0, 10));
+            cur_packet_size = $urandom_range(1, 5);
+            drive_master_packet(cur_packet_size);
         end
         $stop();
     end
