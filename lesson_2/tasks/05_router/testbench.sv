@@ -17,9 +17,11 @@ module testbench;
     int         sel_1_bad_cnt;
     int         sel_2_bad_cnt;
     int         sel_3_bad_cnt;
+    int         correctness_unknown_cnt;
+
     logic       is_bad_transact;
     int         total_errors;
-
+    logic       is_correctness_unknown;
 
     // Пользуйтесь этой структурой
     typedef struct {
@@ -27,6 +29,16 @@ module testbench;
         logic       [3:0] in;
         logic       [3:0] out;
     } packet;
+
+    logic [1:0] sel_cur;        // current selection signal
+    logic [3:0] in_cur;
+    logic [3:0] out_routed;
+
+    logic [3:0][1:0] sel_all_cur;
+    logic [3:0] in_all_cur;
+    logic [3:0] out_all_cur;
+    packet pkt_prev, pkt_cur;
+
 
     mailbox#(packet) mon2chk = new();
 
@@ -69,23 +81,18 @@ module testbench;
     initial begin
         // Входные воздействия опишите здесь.
         wait(aresetn);
-        repeat(5) begin
-            @(posedge clk);
-            in  <= $urandom();
-            sel[3:0] <= {2'd3, 2'd2, 2'd1, 2'd0};
-        end
 
-        // // clock_delay(5, clk, 1);
-        // repeat(5) @(posedge clk);
+        // repeat(5) begin
+        //     @(posedge clk);
+        //     in  <= $urandom();
+        //     sel[3:0] <= {2'd3, 2'd2, 2'd1, 2'd0};
+        // end
 
-        repeat(20) begin
-            @(posedge clk);
-            rand_transact();
-        end
+        rand_transact($urandom_range(15, 30));
+
         show_stat();
         $stop();
     end
-
 
 
     // TODO:
@@ -108,55 +115,88 @@ module testbench;
     // TODO:
     // Выполните проверку выходных сигналов
     initial begin
-        logic [1:0] sel_cur;        // current selection signal
-        logic [3:0] in_cur;
-        logic [3:0] out_routed;
-        packet pkt_prev, pkt_cur;
-
+        // logic [1:0] sel_cur;        // current selection signal
+        // logic [3:0] in_cur;
+        // logic [3:0] out_routed;
+        // logic [3:0][1:0] sel_all_cur;
+        // packet pkt_prev, pkt_cur;
+        $display("(%0t) check before reset", $time());
         wait(aresetn);
+        $display("(%0t) check after reset", $time());
         mon2chk.get(pkt_prev);
         forever begin
+            $display("(%0t) Check forever loop", $time());
             transact_cnt++;
             mon2chk.get(pkt_cur);
-            is_bad_transact = 0;
-            // Пишите здесь
+            is_correctness_unknown = 0;
+            is_bad_transact        = 0;
+
+            sel_all_cur = pkt_prev.sel;
+            in_all_cur  = pkt_prev.in;
+            out_all_cur = pkt_cur.out;
+
+            // Transaction detail info
             $display("\n============= Transaction #%0d ===============", transact_cnt);
             for(int i = 0; i < 4; i++) begin
-                sel_cur    = pkt_prev.sel[i][1:0];
-                in_cur     = pkt_prev.in[i];
-                out_routed = pkt_cur.out[sel_cur];
+                $display("(%0t) Check for loop i=%0d", $time(), i);
+                sel_cur     = sel_all_cur[i][1:0];
+                in_cur      = in_all_cur[i];
+                out_routed  = out_all_cur[sel_cur];
+
                 if( in_cur !==  out_routed) begin
                     error_handler(i);
                     $error("(%0t) Bad Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
                         $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
-                end else begin
+                end
+                else if(in_cur === 4'hF || in_cur === 4'h0) begin
+                    is_correctness_unknown = 1;
+                    $warning("(%0t) The correctness of routing is unknown:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
+                        $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
+                end
+                else begin
                     $display("(%0t) Good Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
                         $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
                 end
                 $display("----------------------------");
             end
+            $display("(%0t) Check after For loop", $time());
+            // Transaction summary
             if(is_bad_transact) begin
                 $display("Transaction #%0d FAILURE.", transact_cnt);
                 transact_bad_cnt++;
+            end
+            else if(is_correctness_unknown) begin
+                correctness_unknown_cnt++;
+                $display("Transaction #%0d SUCCESS (???).", transact_cnt);
             end
             else
                 $display("Transaction #%0d SUCCESS.", transact_cnt);
 
             $display("In:  %b,\nSel: %0d%0d%0d%0d\nOut: %b",
                 pkt_prev.in,
-                pkt_prev.sel[0],
-                pkt_prev.sel[1],
-                pkt_prev.sel[2],
-                pkt_prev.sel[3],
+                sel_all_cur[0],
+                sel_all_cur[1],
+                sel_all_cur[2],
+                sel_all_cur[3],
                 pkt_cur.out
             );
+            $display("(%0t) Check before preparation", $time());
+            // Preparing to the next transaction
             pkt_prev = pkt_cur;
+            $display("(%0t) Check after preparation", $time());
         end
     end
 
-    task rand_transact();
-        in  <= $urandom();
-        std::randomize(sel) with { unique{ sel[0], sel[1], sel[2], sel[3] }; };
+    task rand_transact(int num_of_transactions = 1);
+        repeat(num_of_transactions) begin
+            logic [3:0][1:0] tmp;
+            $display("(%0t) rand_trans before posedge", $time());
+            @(posedge clk);
+            $display("(%0t) rand_trans started!", $time());
+            in  <= $urandom();
+            std::randomize(tmp) with { unique{ tmp[0], tmp[1], tmp[2], tmp[3] }; };
+            sel <= tmp;
+        end
     endtask : rand_transact
 
     function void show_stat();
@@ -170,6 +210,7 @@ module testbench;
             "\n\tBad sel[1] counter:      %0d", sel_1_bad_cnt,
             "\n\tBad sel[2] counter:      %0d", sel_2_bad_cnt,
             "\n\tBad sel[3] counter:      %0d", sel_3_bad_cnt,
+            "\n\tUnknown correctness:     %0d", correctness_unknown_cnt,
             "\n\tTotal number of errors:  %0d", total_errors,
             "\n\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
         );
