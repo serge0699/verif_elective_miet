@@ -1,5 +1,5 @@
 `timescale 1ns/100ps
-
+// make EXAMPLE=05_router SIM_OPTS=-gui\ -sv_seed\ random EXT_POSTFIX=svp
 module testbench;
 
     // Тактовый сигнал и сигнал сброса
@@ -72,11 +72,11 @@ module testbench;
         repeat(5) begin
             @(posedge clk);
             in  <= $urandom();
-            sel[3:0] <= {3, 2, 1, 0};
+            sel[3:0] <= {2'd3, 2'd2, 2'd1, 2'd0};
         end
 
-        // clock_delay(5, clk, 1);
-        repeat(5) @(posedge clk);
+        // // clock_delay(5, clk, 1);
+        // repeat(5) @(posedge clk);
 
         repeat(20) begin
             @(posedge clk);
@@ -107,7 +107,6 @@ module testbench;
 
     // TODO:
     // Выполните проверку выходных сигналов
-    // make EXAMPLE=05_router SIM_OPTS=-gui\ -sv_seed\ 1234 EXT_POSTFIX=svp
     initial begin
         logic [1:0] sel_cur;        // current selection signal
         logic [3:0] in_cur;
@@ -136,10 +135,13 @@ module testbench;
                 end
                 $display("----------------------------");
             end
-            if(is_bad_transact)
-                $display("BAD Transaction");
+            if(is_bad_transact) begin
+                $display("Transaction #%0d FAILURE.", transact_cnt);
+                transact_bad_cnt++;
+            end
             else
-                $display("GOOD Transaction");
+                $display("Transaction #%0d SUCCESS.", transact_cnt);
+
             $display("In:  %b,\nSel: %0d%0d%0d%0d\nOut: %b",
                 pkt_prev.in,
                 pkt_prev.sel[0],
@@ -149,7 +151,6 @@ module testbench;
                 pkt_cur.out
             );
             pkt_prev = pkt_cur;
-            transact_bad_cnt = is_bad_transact ? (transact_bad_cnt+1) : transact_bad_cnt;
         end
     end
 
