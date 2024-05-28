@@ -115,11 +115,6 @@ module testbench;
     // TODO:
     // Выполните проверку выходных сигналов
     initial begin
-        // logic [1:0] sel_cur;        // current selection signal
-        // logic [3:0] in_cur;
-        // logic [3:0] out_routed;
-        // logic [3:0][1:0] sel_all_cur;
-        // packet pkt_prev, pkt_cur;
         $display("(%0t) check before reset", $time());
         wait(aresetn);
         $display("(%0t) check after reset", $time());
@@ -135,6 +130,12 @@ module testbench;
             in_all_cur  = pkt_prev.in;
             out_all_cur = pkt_cur.out;
 
+            if(in_all_cur === 4'hF || in_all_cur === 4'h0) begin
+                is_correctness_unknown = 1;
+                $warning("(%0t) The correctness of routing is unknown: in[3:0] = %0d.",
+                    $time(), in_all_cur);
+            end
+
             // Transaction detail info
             $display("\n============= Transaction #%0d ===============", transact_cnt);
             for(int i = 0; i < 4; i++) begin
@@ -146,11 +147,6 @@ module testbench;
                 if( in_cur !==  out_routed) begin
                     error_handler(i);
                     $error("(%0t) Bad Routing:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
-                        $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
-                end
-                else if(in_cur === 4'hF || in_cur === 4'h0) begin
-                    is_correctness_unknown = 1;
-                    $warning("(%0t) The correctness of routing is unknown:\nsel[%0d]=%0d,\n in[%0d]=%0d,\nout[%0d]=%0d",
                         $time(), i, sel_cur, i, in_cur, sel_cur, out_routed);
                 end
                 else begin
