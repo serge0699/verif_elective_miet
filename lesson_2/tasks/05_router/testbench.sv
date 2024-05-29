@@ -49,7 +49,7 @@ module testbench;
     initial begin
 	wait(aresetn);
         // Входные воздействия опишите здесь.
-		repeat(20) begin
+		repeat(40) begin
 		@(posedge clk)
 		sel = $urandom();
 		in  = $urandom();
@@ -134,7 +134,7 @@ module testbench;
 		&& pkt_prev.sel[3][1:0] != 2'b00 
 		&& pkt_cur.out[0] != 1'b0) begin
 			errors = errors +1'b1;
-			$error("Out[0] no equal 0, pkt_cur.out[0]", pkt_cur.out[0]);
+			$error("Out[0] no equal 0, pkt_cur.out[0]=", pkt_cur.out[0]);
 		end
 
       
@@ -162,7 +162,7 @@ module testbench;
 		&& pkt_prev.sel[3][1:0] != 2'b01 
 		&& pkt_cur.out[1] != 1'b0) begin
 			errors = errors +1'b1;
-			$error("Out[1] no equal 0, pkt_cur.out[1]", pkt_cur.out[1]);
+			$error("Out[1] no equal 0, pkt_cur.out[1]=", pkt_cur.out[1]);
 		end
 
 
@@ -189,7 +189,7 @@ module testbench;
 		&& pkt_prev.sel[3][1:0] != 2'b10 
 		&& pkt_cur.out[2] != 1'b0) begin
 			errors = errors +1'b1;
-			$error("Out[2] no equal 0, pkt_cur.out[2]", pkt_cur.out[2]);
+			$error("Out[2] no equal 0, pkt_cur.out[2]=", pkt_cur.out[2]);
 		end
 
 
@@ -216,7 +216,7 @@ module testbench;
 		&& pkt_prev.sel[3][1:0] != 2'b11 
 		&& pkt_cur.out[3] != 1'b0) begin
 			errors = errors +1'b1;
-			$error("Out[3] no equal 0, pkt_cur.out[3] ", pkt_cur.out[3]);
+			$error("Out[3] no equal 0, pkt_cur.out[3]= ", pkt_cur.out[3]);
 		end
 
             pkt_prev = pkt_cur;
@@ -225,7 +225,7 @@ module testbench;
     end
 	
 	initial begin
-		#(21*CLK_PERIOD);
+		#(30*CLK_PERIOD);
 		$display("errors=%d", errors);
 		$stop();
 	end
