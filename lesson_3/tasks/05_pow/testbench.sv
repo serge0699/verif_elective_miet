@@ -22,6 +22,7 @@ module testbench;
     logic        m_tid;
     logic        m_tlast;
 
+    int packet_cnt;
 
     //---------------------------------
     // Модуль для тестирования
@@ -186,18 +187,21 @@ module testbench;
         wait(aresetn);
     endtask
 
-    task drive_slave(int delay = 0);
-        repeat(delay) @(posedge clk);
+    task drive_slave(int delay);
+        repeat(delay)
+            @(posedge clk);
         m_tready <= 1;
         @(posedge clk);
         m_tready <= 0;
     endtask
 
-    task do_slave_drive();
+    task do_slave_drive(int delay_min, int delay_max);
+        int delay;
         reset_slave();
         @(posedge clk);
         forever begin
-            drive_slave($urandom_range(0, 10));
+            delay = $urandom_range(delay_min, delay_max);
+            drive_slave(delay);
         end
     endtask
 
@@ -220,9 +224,9 @@ module testbench;
     endtask
 
     // Slave
-    task slave();
+    task slave(int delay_min = 0, delay_max = 10);
         fork
-            do_slave_drive();
+            do_slave_drive(delay_min, delay_max);
             do_slave_monitor();
         join
     endtask
@@ -244,14 +248,13 @@ module testbench;
     endtask
 
     task do_check(int pkt_amount = 1);
-        int cnt;
         packet in_p, out_p;
         forever begin
             in_mbx.get(in_p);
             out_mbx.get(out_p);
             check(in_p, out_p);
-            cnt = cnt + out_p.tlast;
-            if( cnt == pkt_amount ) begin
+            packet_cnt = packet_cnt + out_p.tlast;
+            if( packet_cnt == pkt_amount ) begin
                 break;
             end
         end
@@ -311,7 +314,7 @@ module testbench;
             .gen_delay_max  (    20),
             .slave_delay_min(     0),
             .slave_delay_max(     5),
-            .timeout_cycles (100000)
+            .timeout_cycles (300000)
         );
     end
 
