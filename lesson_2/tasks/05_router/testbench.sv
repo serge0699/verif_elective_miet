@@ -10,9 +10,7 @@ module testbench;
     logic       [3:0] in;
     logic       [3:0] out;
     logic       [9:0] j;
-    logic [3:0][1:0] sel1;
     initial j=0;
-    assign sel1 = sel + 1;
     router DUT(
         .clk     ( clk     ),
         .aresetn ( aresetn ),
