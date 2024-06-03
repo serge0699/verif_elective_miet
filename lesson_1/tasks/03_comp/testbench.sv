@@ -31,10 +31,8 @@ module testbench;
     a = 10;#10ns;
     if (c != 0) $error("BAD");
     a = 30;#20ns;
-
     if (c != 1) $error("BAD");
     b = 40;#10ns;
-
     if (c != 0) $error("BAD");
     end
     //------------------------------------------------------------

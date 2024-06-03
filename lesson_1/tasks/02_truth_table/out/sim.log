@@ -14,21 +14,19 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -gui work.testbench -do "questa.tcl" -voptargs="+acc" -l 02_truth_table/out/sim.log -wlf 02_truth_table/out/sim.wlf 
-# Start time: 01:57:34 on May 11,2024
+# Start time: 09:46:34 on Jun 03,2024
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
 # Loading work.testbench(fast)
 # Loading work.truth_table(fast)
 # do questa.tcl
-# ** Error: incorrect truth_table
+# ** Error: incorrect truth_tablea:0 ,b:1 ,c:1 ,r:1 _r:0
 #    Time: 61 ns  Scope: testbench File: 02_truth_table/testbench.sv Line: 66
-# a:0 b:1 c:1
-# ** Error: incorrect truth_table
+# ** Error: incorrect truth_tablea:1 ,b:1 ,c:1 ,r:1 _r:0
 #    Time: 71 ns  Scope: testbench File: 02_truth_table/testbench.sv Line: 66
-# a:1 b:1 c:1
 # ** Note: $stop    : 02_truth_table/generator.svh(9)
 #    Time: 80 ns  Iteration: 0  Instance: /testbench
 # Break in Module testbench at 02_truth_table/generator.svh line 9
 # Saving coverage database on exit...
-# End time: 02:49:16 on May 11,2024, Elapsed time: 0:51:42
+# End time: 10:00:32 on Jun 03,2024, Elapsed time: 0:13:58
 # Errors: 2, Warnings: 0

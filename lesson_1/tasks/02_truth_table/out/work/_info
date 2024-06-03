@@ -9,25 +9,25 @@ z2
 cModel Technology
 Z0 d/home/user/verif_elective_miet/lesson_1/tasks
 T_opt
-!s110 1715381854
-V5MUH`30I_lcd0HlJ@P@ng2
+!s110 1717397195
+V9?K5_PXlVM5W7XX4lZd_B3
 04 9 4 work testbench fast 0
-=1-0800279d16ec-663ea65e-79db0-12a4
+=1-0800279d16ec-665d66cb-37fc8-dda
 o-quiet -auto_acc_if_foreign -work work +acc
 Z1 tCvgOpt 0
 n@_opt
 OL;O;10.7c;67
 vtestbench
 Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
-Z3 !s110 1715381846
+Z3 !s110 1717397190
 !i10b 1
-!s100 J3RZzWi=URE[Qi9RTbjl63
-I=oOSNmH3mUIHfoboHL:WX0
+!s100 aATNWR^0meCRlMnZoz[PV1
+IQ0dDel=PbN63_=9?>RIOe0
 Z4 VDg1SIo80bB@j0V0VzS_@n1
 !s105 testbench_sv_unit
 S1
 R0
-w1715381837
+w1717396931
 802_truth_table/testbench.sv
 F02_truth_table/testbench.sv
 F02_truth_table/generator.svh
@@ -36,7 +36,7 @@ Z5 OL;L;10.7c;67
 r1
 !s85 0
 31
-Z6 !s108 1715381846.000000
+Z6 !s108 1717397189.000000
 Z7 !s107 02_truth_table/generator.svh|02_truth_table/out/EXT_POSTFIX.none|02_truth_table/truth_table.sv|02_truth_table/testbench.sv|
 Z8 !s90 -sv|-work|work|02_truth_table/testbench.sv|02_truth_table/truth_table.sv|02_truth_table/out/EXT_POSTFIX.none|
 !i113 0

@@ -1,30 +1,30 @@
 var g_data = {
 z2:{prod:'Questa',reporttype:'du',duname:'work.testbench',lang:'SystemVerilog',src:{z:'04_onehot/testbench.sv'},summaryTables:{loctable:{
 headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
-totalhits:{class:'odd_r', val:'98.43%'},avgw:{class:'bgGreen', val:'98.43%'},
+totalhits:{class:'odd_r', val:'100.00%'},avgw:{class:'bgGreen', val:'100.00%'},
 data:[
-{link:{class:'odd',val:'g.htm?f=1&s=2,Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'63'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'98.43%'},cp:{class:'bgGreen', val:'98.43%'}}
+{link:{class:'odd',val:'g.htm?f=1&s=2,Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'64'},ms:{class:'odd_r', val:'0'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'100.00%'},cp:{class:'bgGreen', val:'100.00%'}}
 ]
 }
 }
 },
 z4:{prod:'Questa',reporttype:'in',scopes:[{link:'z.htm?f=1&s=4',val:'testbench'}],du:{val:'work.testbench',link:'z.htm?f=1&s=4'},lang:'SystemVerilog',src:{z:'04_onehot/testbench.sv'},summaryTables:{
 headers:['Cvg'],
-instances:[{parent:'0',ln:'TOTAL',covs:[{class:'bgGreen', val:'98.43'},{class:'bgGreen', val:'98.43'}]},
-{parent:'0',ln:'testbench',covs:[{class:'bgGreen', val:'98.43'},{class:'bgGreen', val:'98.43'}]},
+instances:[{parent:'0',ln:'TOTAL',covs:[{class:'bgGreen', val:'100.00'},{class:'bgGreen', val:'100.00'}]},
+{parent:'0',ln:'testbench',covs:[{class:'bgGreen', val:'100.00'},{class:'bgGreen', val:'100.00'}]},
 ]
 ,loctable:{
 headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
-totalhits:{class:'odd_r', val:'98.43%'},avgw:{class:'bgGreen', val:'98.43%'},
+totalhits:{class:'odd_r', val:'100.00%'},avgw:{class:'bgGreen', val:'100.00%'},
 data:[
-{link:{class:'odd',val:'g.htm?f=1&s=4,Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'63'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'98.43%'},cp:{class:'bgGreen', val:'98.43%'}}
+{link:{class:'odd',val:'g.htm?f=1&s=4,Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'64'},ms:{class:'odd_r', val:'0'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'100.00%'},cp:{class:'bgGreen', val:'100.00%'}}
 ]
 }
 ,rectable:{
 headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
-totalhits:{class:'odd_r', val:'98.43%'},avgw:{class:'bgGreen', val:'98.43%'},
+totalhits:{class:'odd_r', val:'100.00%'},avgw:{class:'bgGreen', val:'100.00%'},
 data:[
-{link:{class:'odd',val:'Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'63'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'98.43%'},cp:{class:'bgGreen', val:'98.43%'}}
+{link:{class:'odd',val:'Covergroups'},tb:{class:'odd_r', val:'64'},cb:{class:'odd_r', val:'64'},ms:{class:'odd_r', val:'0'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'100.00%'},cp:{class:'bgGreen', val:'100.00%'}}
 ]
 }
 }

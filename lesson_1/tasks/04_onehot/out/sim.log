@@ -14,76 +14,77 @@
 # //  18 U.S.C. Section 1905.
 # //
 # vsim -gui work.testbench -do "questa.tcl" -voptargs="+acc" -l 04_onehot/out/sim.log -wlf 04_onehot/out/sim.wlf 
-# Start time: 03:43:45 on May 11,2024
+# Start time: 10:45:13 on Jun 03,2024
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: 04_onehot/testbench.sv(41): (vopt-2244) Variable 'range' is implicitly static. You must either explicitly declare it as static or automatic
+# ** Warning: 04_onehot/testbench.sv(40): (vopt-2244) Variable 'onehot_ref' is implicitly static. You must either explicitly declare it as static or automatic
 # or remove the initialization in the declaration of variable.
 # Loading sv_std.std
 # Loading work.testbench(fast)
 # Loading work.bin_to_onehot(fast)
 # do questa.tcl
-# bin =  1 range =  2 onehot:                    2 
-# bin =  2 range =  3 onehot:                    4 
-# bin =  3 range =  4 onehot:                    8 
-# bin =  4 range =  5 onehot:                   16 
-# bin =  5 range =  6 onehot:                   32 
-# bin =  6 range =  7 onehot:                   64 
-# bin =  7 range =  8 onehot:                  128 
-# bin =  8 range =  9 onehot:                  256 
-# bin =  9 range = 10 onehot:                  512 
-# bin = 10 range = 11 onehot:                 1024 
-# bin = 11 range = 12 onehot:                 2048 
-# bin = 12 range = 13 onehot:                 4096 
-# bin = 13 range = 14 onehot:                 8192 
-# bin = 14 range = 15 onehot:                16384 
-# bin = 15 range = 16 onehot:                32768 
-# bin = 16 range = 17 onehot:                65536 
-# bin = 17 range = 18 onehot:               131072 
-# bin = 18 range = 19 onehot:               262144 
-# bin = 19 range = 20 onehot:               524288 
-# bin = 20 range = 21 onehot:              1048576 
-# bin = 21 range = 22 onehot:              2097152 
-# bin = 22 range = 23 onehot:              4194304 
-# bin = 23 range = 24 onehot:              8388608 
-# bin = 24 range = 25 onehot:             16777216 
-# bin = 25 range = 26 onehot:             33554432 
-# bin = 26 range = 27 onehot:             67108864 
-# bin = 27 range = 28 onehot:            134217728 
-# bin = 28 range = 29 onehot:            268435456 
-# bin = 29 range = 30 onehot:            536870912 
-# bin = 30 range = 31 onehot:           1073741824 
-# bin = 31 range = 32 onehot:           2147483648 
-# bin = 32 range = 33 onehot:           4294967296 
-# bin = 33 range = 34 onehot:           8589934592 
-# bin = 34 range = 35 onehot:          17179869184 
-# bin = 35 range = 36 onehot:          34359738368 
-# bin = 36 range = 37 onehot:          68719476736 
-# bin = 37 range = 38 onehot:         137438953472 
-# bin = 38 range = 39 onehot:         274877906944 
-# bin = 39 range = 40 onehot:         549755813888 
-# bin = 40 range = 41 onehot:        1099511627776 
-# bin = 41 range = 42 onehot:        2199023255552 
-# bin = 42 range = 43 onehot:        4398046511104 
-# bin = 43 range = 44 onehot:        8796093022208 
-# bin = 44 range = 45 onehot:       17592186044416 
-# bin = 45 range = 46 onehot:       35184372088832 
-# bin = 46 range = 47 onehot:       70368744177664 
-# bin = 47 range = 48 onehot:      140737488355328 
-# bin = 48 range = 49 onehot:      281474976710656 
-# bin = 49 range = 50 onehot:      562949953421312 
-# bin = 50 range = 51 onehot:     1125899906842624 
-# bin = 51 range = 52 onehot:     2251799813685248 
-# bin = 52 range = 53 onehot:     4503599627370496 
-# bin = 53 range = 54 onehot:     9007199254740992 
-# bin = 54 range = 55 onehot:    18014398509481984 
-# bin = 55 range = 56 onehot:    36028797018963968 
-# bin = 56 range = 57 onehot:    72057594037927936 
-# bin = 57 range = 58 onehot:   144115188075855872 
-# bin = 58 range = 59 onehot:   288230376151711744 
-# bin = 59 range = 60 onehot:   576460752303423488 
-# bin = 60 range = 61 onehot:  1152921504606846976 
-# bin = 61 range = 62 onehot:  2305843009213693952 
-# bin = 62 range = 63 onehot:  4611686018427387904 
+# bin =  0 range =  0 onehot:                    1 
+# bin =  1 range =  1 onehot:                    2 
+# bin =  2 range =  2 onehot:                    4 
+# bin =  3 range =  3 onehot:                    8 
+# bin =  4 range =  4 onehot:                   16 
+# bin =  5 range =  5 onehot:                   32 
+# bin =  6 range =  6 onehot:                   64 
+# bin =  7 range =  7 onehot:                  128 
+# bin =  8 range =  8 onehot:                  256 
+# bin =  9 range =  9 onehot:                  512 
+# bin = 10 range = 10 onehot:                 1024 
+# bin = 11 range = 11 onehot:                 2048 
+# bin = 12 range = 12 onehot:                 4096 
+# bin = 13 range = 13 onehot:                 8192 
+# bin = 14 range = 14 onehot:                16384 
+# bin = 15 range = 15 onehot:                32768 
+# bin = 16 range = 16 onehot:                65536 
+# bin = 17 range = 17 onehot:               131072 
+# bin = 18 range = 18 onehot:               262144 
+# bin = 19 range = 19 onehot:               524288 
+# bin = 20 range = 20 onehot:              1048576 
+# bin = 21 range = 21 onehot:              2097152 
+# bin = 22 range = 22 onehot:              4194304 
+# bin = 23 range = 23 onehot:              8388608 
+# bin = 24 range = 24 onehot:             16777216 
+# bin = 25 range = 25 onehot:             33554432 
+# bin = 26 range = 26 onehot:             67108864 
+# bin = 27 range = 27 onehot:            134217728 
+# bin = 28 range = 28 onehot:            268435456 
+# bin = 29 range = 29 onehot:            536870912 
+# bin = 30 range = 30 onehot:           1073741824 
+# bin = 31 range = 31 onehot:           2147483648 
+# bin = 32 range = 32 onehot:           4294967296 
+# bin = 33 range = 33 onehot:           8589934592 
+# bin = 34 range = 34 onehot:          17179869184 
+# bin = 35 range = 35 onehot:          34359738368 
+# bin = 36 range = 36 onehot:          68719476736 
+# bin = 37 range = 37 onehot:         137438953472 
+# bin = 38 range = 38 onehot:         274877906944 
+# bin = 39 range = 39 onehot:         549755813888 
+# bin = 40 range = 40 onehot:        1099511627776 
+# bin = 41 range = 41 onehot:        2199023255552 
+# bin = 42 range = 42 onehot:        4398046511104 
+# bin = 43 range = 43 onehot:        8796093022208 
+# bin = 44 range = 44 onehot:       17592186044416 
+# bin = 45 range = 45 onehot:       35184372088832 
+# bin = 46 range = 46 onehot:       70368744177664 
+# bin = 47 range = 47 onehot:      140737488355328 
+# bin = 48 range = 48 onehot:      281474976710656 
+# bin = 49 range = 49 onehot:      562949953421312 
+# bin = 50 range = 50 onehot:     1125899906842624 
+# bin = 51 range = 51 onehot:     2251799813685248 
+# bin = 52 range = 52 onehot:     4503599627370496 
+# bin = 53 range = 53 onehot:     9007199254740992 
+# bin = 54 range = 54 onehot:    18014398509481984 
+# bin = 55 range = 55 onehot:    36028797018963968 
+# bin = 56 range = 56 onehot:    72057594037927936 
+# bin = 57 range = 57 onehot:   144115188075855872 
+# bin = 58 range = 58 onehot:   288230376151711744 
+# bin = 59 range = 59 onehot:   576460752303423488 
+# bin = 60 range = 60 onehot:  1152921504606846976 
+# bin = 61 range = 61 onehot:  2305843009213693952 
+# bin = 62 range = 62 onehot:  4611686018427387904 
 # Saving coverage database on exit...
-# End time: 03:46:14 on May 11,2024, Elapsed time: 0:02:29
+# End time: 10:48:53 on Jun 03,2024, Elapsed time: 0:03:40
 # Errors: 0, Warnings: 1

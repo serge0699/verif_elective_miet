@@ -1,6 +1,6 @@
 QuestaSim-64 vcover 10.7c Coverage Utility 2018.08 Aug 17 2018
-Start time: 02:49:16 on May 11,2024
+Start time: 10:00:33 on Jun 03,2024
 vcover report -details -html -htmldir 02_truth_table/out/stats 02_truth_table/out/cov.ucdb 
 Report created in 02_truth_table/out/stats/index.html
-End time: 02:49:19 on May 11,2024, Elapsed time: 0:00:03
+End time: 10:00:34 on Jun 03,2024, Elapsed time: 0:00:01
 Errors: 0, Warnings: 0

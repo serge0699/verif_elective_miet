@@ -9,7 +9,6 @@ module testbench;
     // Определите разрядность выходного
     // one-hot сигнала
     logic [63:0] onehot;
-
     // Тестируемый модуль: one-hot кодировщик
     // Соответствие выхода входу:
     // bin =  0 | onehot = 0...001
@@ -38,21 +37,21 @@ module testbench;
     // нескольких initial, можно из одного. 
     //------------------------------------------------------------
     initial begin
-        logic [5:0] range = 1;
+        logic [63:0] onehot_ref = '0;
+        logic [5:00] range;
         logic [63:0] eq;
-        bin = 1; #1ns;
+        bin = 0; #1ns;
         while( bin != 63) begin
+            range = 0;
             eq = onehot;
+            onehot_ref = 2 ** bin;
             while( (eq % 2) != 1) begin       
                 eq = eq / 2;
-                range = range + 1;
+                range = range + 1;// Здесь range - это просто показатель разряда,тот же bin, но посчитанный из выхода onehot (если range = 2, то onehot = 0.....100 и т.д)
             end   
-            $display("bin = ",bin ," range = ", range," onehot: %d ", onehot);
-            for ( int i = 0; i <= 64; i++ ) begin
-                bin = bin + 1; #1ns;
-                range = 1;
-                break;
-            end
+        $display("bin = ",bin ," range = ", range," onehot: %d ", onehot);
+        if (onehot_ref !== onehot) $error("onehot error check:" ,"onehot: " ,onehot ,"onehot_ref:" ,onehot_ref);
+        bin = bin + 1; #1ns;
         end
     end
     //------------------------------------------------------------

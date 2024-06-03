@@ -63,8 +63,7 @@ module testbench;
             @ev
             _r = !b && c || a && !b || b && !a && !c;
             if( _r != r ) begin 
-                $error("incorrect truth_table");
-                $display("a:%b", a, " b:%b", b, " c:%b", c); 
+                $error("incorrect truth_table: ", "a:%b ,b:%b ,c:%b ,r:%b _r:%b", a , b , c , r, _r);
             end
         end
     end
