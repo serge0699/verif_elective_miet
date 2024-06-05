@@ -96,6 +96,8 @@ module testbench;
         packet p;
             if( !std::randomize(p) with {
                 p.delay inside {[delay_min:delay_max]};
+                p.tdata inside {[0:100]};
+                //p.tid == 0;
             } ) begin
                 $error("Can't randomize packet!");
                 $finish();
@@ -191,7 +193,6 @@ module testbench;
         void'(std::randomize(delay) with {delay inside {[delay_min:delay_max]};});
         repeat(delay) @(posedge clk);
         m_tready <= 1;
-        @(m_tvalid);////////
         @(posedge clk);
         m_tready <= 0;
     endtask
@@ -217,6 +218,7 @@ module testbench;
             $display("GEN OUT:%0t p.tdata = %h, p.tid = %h", $time(), p.tdata, p.tid);
             out_mbx.put(p);
         end
+        //else s_tvalid <= 0;
     endtask
 
     task do_slave_monitor();
@@ -342,12 +344,12 @@ module testbench;
             reset();
         join_none
         test(
-            .gen_pkt_amount (   1000),
+            .gen_pkt_amount (  50000),
             .gen_delay_min  (      1),
-            .gen_delay_max  (      1),
-            .slave_delay_min(      1),
-            .slave_delay_max(      1),
-            .timeout_cycles ( 10000)
+            .gen_delay_max  (      2),
+            .slave_delay_min(      3),
+            .slave_delay_max(      3),
+            .timeout_cycles (  10000)
         );
     end
 
@@ -355,28 +357,5 @@ module testbench;
 endmodule
 
 module tb_alu();
-
-    //import alu_opcodes_pkg::*;
-
-    parameter TEST_VALUES     = 1000;
-
-    logic clk = 0;
-    always #5ns clk = ~clk;
-
-    logic [4:0]  operator_i;
-    logic [31:0] operand_a_i;
-    logic [31:0] operand_b_i;
-
-    task result_test();
-        repeat(TEST_VALUES)
-        begin
-            operator_i  = $urandom_range(4'b1111);
-            operand_a_i = $urandom();
-            operand_b_i = $urandom();
-            @(posedge clk);
-        end
-    endtask
-
     testbench my_tb();
-
 endmodule
