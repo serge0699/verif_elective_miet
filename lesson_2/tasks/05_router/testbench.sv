@@ -1,5 +1,6 @@
 module testbench;
 
+
     // Тактовый сигнал и сигнал сброса
     logic clk;
     logic aresetn;
@@ -8,7 +9,8 @@ module testbench;
     logic  [3:0][1:0] sel;
     logic       [3:0] in;
     logic       [3:0] out;
-
+    logic       [9:0] j;
+    initial j=0;
     router DUT(
         .clk     ( clk     ),
         .aresetn ( aresetn ),
@@ -22,28 +24,52 @@ module testbench;
 
     // TODO:
     // Определите период тактового сигнала
-    parameter CLK_PERIOD = // ?;
+    parameter CLK_PERIOD = 10; //xz
 
     // TODO:
     // Cгенерируйте тактовый сигнал
     initial begin
         clk <= 0;
         forever begin
-
+	 #(CLK_PERIOD/2) clk <= ~clk;
         end
     end
     
     // TODO:
     // Cгенерируйте сигнал сброса
     initial begin
-
+	aresetn <= 0;
+        #(CLK_PERIOD);
+        aresetn <= 1;
     end
 
     // TODO:
     // Сгенерируйте входные сигналы
     // Не забудьте про ожидание сигнала сброса!
     initial begin
+        sel <= 0;
+        in <= 0;
         // Входные воздействия опишите здесь.
+	wait(aresetn);
+        /*repeat(20) begin
+	    @(posedge clk);
+            in <= $urandom_range(0, 15);
+
+		foreach(sel[i]) begin
+		    begin
+		    	sel[i] = $urandom_range(0, 3);        // От 0 до 3
+		    end   
+		end*/
+        for(int t = 0; t < 256; t++) begin
+            for (int j = 0; j < 15; j++) begin
+                @(posedge clk);
+                in <= in + 1;
+            end
+            @(posedge clk);
+            sel <= sel + 1;
+            in <= 0;
+        end    
+        //end
         @(posedge clk);
         $stop();
     end
@@ -66,6 +92,10 @@ module testbench;
         forever begin
             @(posedge clk);
             // Пишите здесь.
+	        pkt.sel = sel;
+            pkt.in = in;
+            pkt.out = out;
+            mon2chk.put(pkt);
         end
     end
 
@@ -77,11 +107,56 @@ module testbench;
         mon2chk.get(pkt_prev);
         forever begin
             mon2chk.get(pkt_cur);
+        
+        $display("////////////////////////////////");
+        $display("ITERATION = %d",j);
+        $display("pkt_prev.sel = %d %d %d %d", pkt_prev.sel[3], pkt_prev.sel[2], pkt_prev.sel[1], pkt_prev.sel[0]);
+        $display("pkt_prev.in = %b",pkt_prev.in);
+        $display("pkt_cur.out = %b",pkt_cur.out);
+        /*$display("pkt_prev.sel[0] = %d",pkt_prev.sel[0]);
+        $display("pkt_prev.sel[1] = %d",pkt_prev.sel[1]);
+        $display("pkt_prev.sel[2] = %d",pkt_prev.sel[2]);
+        $display("pkt_prev.sel[3] = %d",pkt_prev.sel[3]);
+        $display("pkt_prev.in = %b",pkt_prev.in);
+        $display("pkt_cur.out = %b",pkt_cur.out);
+        $display("pkt_cur.out[0] = %b",pkt_cur.out[0]);
+        $display("pkt_cur.out[1]= %b",pkt_cur.out[1]);
+        $display("pkt_cur.out[2] = %b",pkt_cur.out[2]);
+        $display("pkt_cur.out[3]= %b",pkt_cur.out[3]);*/
+        j++;
 
             // Пишите здесь
-
+        for(int i = 0; i<4; i++) begin
+            if(pkt_prev.sel[0] == i) begin 
+                if( pkt_cur.out[i] !==  pkt_prev.in [0]) begin
+                    $error("BAD_OUT%1d",i);
+                    $display("pkt_prev.sel[0] = %d",pkt_prev.sel[0] ," pkt_prev.in [0]: %d ", pkt_prev.in [0]," pkt_cur.out[%1d]: %d ",i, pkt_cur.out[i]);
+                end 
+            end
+            else if(pkt_prev.sel[1] == i) begin 
+                if( pkt_cur.out[i] !==  pkt_prev.in [1]) begin
+                    $error("BAD_OUT%1d",i);
+                    $display("pkt_prev.sel[1] = %d",pkt_prev.sel[1] ," pkt_prev.in [1]: %d ", pkt_prev.in [1]," pkt_cur.out[%1d]: %d ",i, pkt_cur.out[i]);
+                end
+            end
+            else if(pkt_prev.sel[2] == i) begin 
+                if( pkt_cur.out[i] !==  pkt_prev.in [2]) begin
+                    $error("BAD_OUT%1d",i);
+                    $display("pkt_prev.sel[2] = %d",pkt_prev.sel[2] ," pkt_prev.in [2]: %d ", pkt_prev.in [2]," pkt_cur.out[%1d]: %d ",i, pkt_cur.out[i]);
+                end
+            end
+            else if(pkt_prev.sel[3] == i) begin 
+                if( pkt_cur.out[i] !== pkt_prev.in [3]) begin
+                    $error("BAD_OUT%1d",i);
+                    $display("pkt_prev.sel[3] = %d",pkt_prev.sel[3] ," pkt_prev.in [3]: %d ", pkt_prev.in [3]," pkt_cur.out[%1d]: %d ",i, pkt_cur.out[i]);
+                end
+            end
+            else if( pkt_cur.out[i] !==  0) begin
+                    $error("BAD_OUT%1d",i);
+                    $display("pkt_prev.sel = %d %d %d %d", pkt_prev.sel[3], pkt_prev.sel[2], pkt_prev.sel[1], pkt_prev.sel[0] ," pkt_cur.out[%1d]: %d ",i, pkt_cur.out[i]);
+            end
+        end                   		
             pkt_prev = pkt_cur;
-        end
     end
-
+end
 endmodule
