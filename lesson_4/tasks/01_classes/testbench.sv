@@ -174,12 +174,11 @@ module testbench;
             // }
 
             // "Elegant" implementation v1.1
-            // (!!!) If you compare the expression with '0 instead of 'b0, this leads to an internal error when the checker tries to randomize the class
             foreach(tlast[i]) {
                 if(tlast[i]) {
-                    if      (tlast.size() - i > 3 ) {tlast[i+1], tlast[i+2], tlast[i+3]} == 'b0;
-                    else if (tlast.size() - i == 3) {tlast[i+1], tlast[i+2]}             == 'b0;
-                    else if (tlast.size() - i == 2) {tlast[i+1]}                         == 'b0;
+                    if      (tlast.size() - i > 3 ) {tlast[i+1], tlast[i+2], tlast[i+3]} == '0;
+                    else if (tlast.size() - i == 3) {tlast[i+1], tlast[i+2]}             == '0;
+                    else if (tlast.size() - i == 2) {tlast[i+1]}                         == '0;
                 }
             }
         }
