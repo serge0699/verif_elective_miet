@@ -152,12 +152,10 @@ module testbench;
         rand bit        tid;
         rand bit        tlast [];
 
-        constraint constr {
+        constraint tlast_c {
             tdata.size() == tlast.size();
             tdata.size() < 33;
-            tlast.size() < 33;
             tdata.size() % 8 == 0;
-            tlast.size() % 8 == 0;
 
             // (tlast.find_index()).size() <= tdata.size() / 4;
             foreach(tlast[i]) {
