@@ -157,23 +157,30 @@ module testbench;
             tdata.size() < 33;
             tdata.size() % 8 == 0;
 
-            // (tlast.find_index()).size() <= tdata.size() / 4;
-            foreach(tlast[i]) {
-                if(tlast[i] == 1 && ~(i inside {tlast.size()-1, tlast.size()-2, tlast.size()-3})) {
-                    tlast[i+1] == 0;
-                    tlast[i+2] == 0;
-                    tlast[i+3] == 0;
-                }
-                else if(tlast[i] == 1 && i == tlast.size()-3 && {tlast[i-3], tlast[i-2], tlast[i-1]} == 3'b0) {
-                    tlast[i+1] == 0;
-                    tlast[i+2] == 0;
-                }
-                else if(tlast[i] == 1 && i == tlast.size()-2 && {tlast[i-3], tlast[i-2], tlast[i-1]} == 3'b0) {
-                    tlast[i+1] == 0;
-                }
-                // else if(tlast[i] == 1 && i == tlast.size()-1 && {tlast[i-3], tlast[i-2], tlast[i-1]} == 3'b0) {
+            // // Lazy implementation v1.0
+            // foreach(tlast[i]) {
+            //     if(tlast[i] == 1 && ~(i inside {tlast.size()-1, tlast.size()-2, tlast.size()-3})) {
+            //         tlast[i+1] == 0;
+            //         tlast[i+2] == 0;
+            //         tlast[i+3] == 0;
+            //     }
+            //     else if(tlast[i] == 1 && i == tlast.size()-3 && {tlast[i-3], tlast[i-2], tlast[i-1]} == 3'b0) {
+            //         tlast[i+1] == 0;
+            //         tlast[i+2] == 0;
+            //     }
+            //     else if(tlast[i] == 1 && i == tlast.size()-2 && {tlast[i-3], tlast[i-2], tlast[i-1]} == 3'b0) {
+            //         tlast[i+1] == 0;
+            //     }
+            // }
 
-                // }
+            // "Elegant" implementation v1.1
+            // (!!!) If you compare the expression with '0 instead of 'b0, this leads to an internal error when the checker tries to randomize the class
+            foreach(tlast[i]) {
+                if(tlast[i]) {
+                    if(tlast.size() - i > 3)         {tlast[i+1], tlast[i+2], tlast[i+3]} == 'b0;
+                    else if((tlast.size() - i == 3)) {tlast[i+1], tlast[i+2]}             == 'b0;
+                    else if((tlast.size() - i == 2)) {tlast[i+1]}                         == 'b0;
+                }
             }
         }
     endclass
