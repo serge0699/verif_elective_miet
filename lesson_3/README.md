@@ -10,3 +10,16 @@
 
 Если `make` запускается с `COMP_OPTS=+define+VERSION_1`, то будет запущен тест 1 версии, если с `COMP_OPTS=+define+VERSION_2`, то 2. И так далее.
 
+## Задание 2
+
+Реализация самого "элегантного" подхода к рандомизации условия:
+
+```verilog
+// 4) 'tlast', равный 1, появляется в массиве не чаще, чем раз в 4 значения
+```
+
+из [tasks/01_classes/testbench.sv](https://github.com/serge0699/verif_elective_miet/blob/main/lesson_4/tasks/01_classes/testbench.sv). Команда для запуска: `make EXAMPLE=01_classes SIM_OPTS=-gui`.
+
+На скриншоте ниже показано, сколько места занимает решение автора задания.
+
+![](./pic/task_2.jpg)
