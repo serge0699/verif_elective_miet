@@ -1,0 +1,14 @@
+** Warning: (vlib-34) Library already exists at "02_mux/out/work".
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 02_mux/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 15:17:03 on May 04,2024
+vlog -sv -work work 02_mux/mux.sv 02_mux/testbench.sv 02_mux/out/EXT_POSTFIX.none 
+-- Compiling module mux
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+End time: 15:17:03 on May 04,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

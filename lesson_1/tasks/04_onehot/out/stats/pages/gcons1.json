@@ -1,0 +1,5 @@
+var g_db_data = [
+{dummy:0},
+{name:'onehot_cg',f:1,type:6,id:5,tb:'64',h:'64',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hdlPath:'/testbench',parent:'4'},
+{name:'onehot_cg',f:1,type:6,id:5,tb:'64',h:'64',m:'0',hp:'100.00%',cov:['100.00%','G'],g:'100.00%',gp:['100.00%','G'],hdlPath:'/testbench',parent:'4'}];
+processConsCovergroupsData(g_db_data);

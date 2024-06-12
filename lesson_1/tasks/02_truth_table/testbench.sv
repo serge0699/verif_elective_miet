@@ -56,7 +56,17 @@ module testbench;
 
     // Пишите внутри этого блока
     //------------------------------------------------------------
-
+    // Считаем СДНФ по референсной таблице: b~c+a~b+b~a~c
+    initial begin
+        logic _r;
+        while(1) begin
+            @ev
+            _r = !b && c || a && !b || b && !a && !c;
+            if( _r != r ) begin 
+                $error("incorrect truth_table: ", "a:%b ,b:%b ,c:%b ,r:%b _r:%b", a , b , c , r, _r);
+            end
+        end
+    end
     //------------------------------------------------------------
 
 endmodule

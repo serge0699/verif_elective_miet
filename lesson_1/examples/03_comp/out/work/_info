@@ -1,0 +1,67 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/user/verif_elective_miet/lesson_1/examples
+T_opt
+!s110 1714825242
+V=4;mMPn^@ITmdYgAN>>?[2
+04 9 4 work testbench fast 0
+=1-0800279d16ec-6636281a-179ec-fc0
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.7c;67
+vcomp
+Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
+Z3 !s110 1714825237
+!i10b 1
+!s100 b;f0nng2_7VPE_:dZ3YQ50
+ICNYB[zd7IC?=G>MVa7R;:2
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s105 comp_sv_unit
+S1
+R0
+w1714825216
+803_comp/comp.sv
+F03_comp/comp.sv
+L0 1
+Z5 OL;L;10.7c;67
+r1
+!s85 0
+31
+Z6 !s108 1714825237.000000
+Z7 !s107 03_comp/out/EXT_POSTFIX.none|03_comp/testbench.sv|03_comp/comp.sv|
+Z8 !s90 -sv|-work|work|03_comp/comp.sv|03_comp/testbench.sv|03_comp/out/EXT_POSTFIX.none|
+!i113 0
+Z9 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vtestbench
+R2
+R3
+!i10b 1
+!s100 M4TLihzg>bn>Z`Y1O4JjX2
+IG1a]mo;`obR^MZ4_[ZNbQ2
+R4
+!s105 testbench_sv_unit
+S1
+R0
+w1714814068
+803_comp/testbench.sv
+F03_comp/testbench.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1

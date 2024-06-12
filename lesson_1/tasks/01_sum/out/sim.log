@@ -1,0 +1,31 @@
+# Reading pref.tcl
+# //  Questa Sim-64
+# //  Version 10.7c linux_x86_64 Aug 17 2018
+# //
+# //  Copyright 1991-2018 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# vsim -gui work.testbench -do "questa.tcl" -voptargs="+acc" -l 01_sum/out/sim.log -wlf 01_sum/out/sim.wlf 
+# Start time: 16:22:21 on May 04,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Loading sv_std.std
+# Loading work.testbench(fast)
+# Loading work.sum(fast)
+# do questa.tcl
+# Summary:
+# Operand A: 100.000%
+# Operand B: 87.500%
+# ** Note: $stop    : 01_sum/checker.svh(36)
+#    Time: 8200 ps  Iteration: 0  Instance: /testbench
+# Break in Module testbench at 01_sum/checker.svh line 36
+# Saving coverage database on exit...
+# End time: 17:07:09 on May 04,2024, Elapsed time: 0:44:48
+# Errors: 0, Warnings: 0

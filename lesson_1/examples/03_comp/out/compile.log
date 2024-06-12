@@ -1,0 +1,13 @@
+QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 17 2018
+vmap work 03_comp/out/work 
+Modifying modelsim.ini
+QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 17 2018
+Start time: 15:20:37 on May 04,2024
+vlog -sv -work work 03_comp/comp.sv 03_comp/testbench.sv 03_comp/out/EXT_POSTFIX.none 
+-- Compiling module comp
+-- Compiling module testbench
+
+Top level modules:
+	testbench
+End time: 15:20:37 on May 04,2024, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

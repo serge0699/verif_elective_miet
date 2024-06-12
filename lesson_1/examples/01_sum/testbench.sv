@@ -16,7 +16,7 @@ module testbench;
         B = 3;
 
         #20ns;
-        if(C !== 5) $error("BAD");
+        if(C !== 3) $error("BAD");
         $stop();
 
     end

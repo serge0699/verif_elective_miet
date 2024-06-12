@@ -1,0 +1,67 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/user/verif_elective_miet/lesson_1/examples
+T_opt
+!s110 1714825027
+VV@_31`^gEbSFO<_BgXAkz1
+04 9 4 work testbench fast 0
+=1-0800279d16ec-66362743-c8c01-f36
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.7c;67
+vmux
+Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
+Z3 !s110 1714825023
+!i10b 1
+!s100 Ebemz>jJY28;1Ji203la;1
+IU:3[aULnDio01ZeR><<?e0
+Z4 VDg1SIo80bB@j0V0VzS_@n1
+!s105 mux_sv_unit
+S1
+R0
+w1714814068
+802_mux/mux.sv
+F02_mux/mux.sv
+L0 1
+Z5 OL;L;10.7c;67
+r1
+!s85 0
+31
+Z6 !s108 1714825023.000000
+Z7 !s107 02_mux/out/EXT_POSTFIX.none|02_mux/testbench.sv|02_mux/mux.sv|
+Z8 !s90 -sv|-work|work|02_mux/mux.sv|02_mux/testbench.sv|02_mux/out/EXT_POSTFIX.none|
+!i113 0
+Z9 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+vtestbench
+R2
+R3
+!i10b 1
+!s100 ;4;>1N1Le5a=2MaGBfa=92
+I=1iNH7lMTZRWW1:?z9@:E0
+R4
+!s105 testbench_sv_unit
+S1
+R0
+w1714825009
+802_mux/testbench.sv
+F02_mux/testbench.sv
+L0 1
+R5
+r1
+!s85 0
+31
+R6
+R7
+R8
+!i113 0
+R9
+R1

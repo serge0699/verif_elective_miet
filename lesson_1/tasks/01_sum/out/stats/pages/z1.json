@@ -1,0 +1,34 @@
+var g_data = {
+z2:{prod:'Questa',reporttype:'du',duname:'work.testbench',lang:'SystemVerilog',src:{z:'01_sum/testbench.sv'},summaryTables:{loctable:{
+headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
+totalhits:{class:'odd_r', val:'93.75%'},avgw:{class:'bgGreen', val:'93.75%'},
+data:[
+{link:{class:'odd',val:'g.htm?f=1&s=2,Covergroups'},tb:{class:'odd_r', val:'16'},cb:{class:'odd_r', val:'15'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'93.75%'},cp:{class:'bgGreen', val:'93.75%'}}
+]
+}
+}
+},
+z4:{prod:'Questa',reporttype:'in',scopes:[{link:'z.htm?f=1&s=4',val:'testbench'}],du:{val:'work.testbench',link:'z.htm?f=1&s=4'},lang:'SystemVerilog',src:{z:'01_sum/testbench.sv'},summaryTables:{
+headers:['Cvg'],
+instances:[{parent:'0',ln:'TOTAL',covs:[{class:'bgGreen', val:'93.75'},{class:'bgGreen', val:'93.75'}]},
+{parent:'0',ln:'testbench',covs:[{class:'bgGreen', val:'93.75'},{class:'bgGreen', val:'93.75'}]},
+]
+,loctable:{
+headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
+totalhits:{class:'odd_r', val:'93.75%'},avgw:{class:'bgGreen', val:'93.75%'},
+data:[
+{link:{class:'odd',val:'g.htm?f=1&s=4,Covergroups'},tb:{class:'odd_r', val:'16'},cb:{class:'odd_r', val:'15'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'93.75%'},cp:{class:'bgGreen', val:'93.75%'}}
+]
+}
+,rectable:{
+headers:['Coverage Type', 'Bins', 'Hits', 'Misses', 'Weight', '% Hit', 'Coverage'],
+totalhits:{class:'odd_r', val:'93.75%'},avgw:{class:'bgGreen', val:'93.75%'},
+data:[
+{link:{class:'odd',val:'Covergroups'},tb:{class:'odd_r', val:'16'},cb:{class:'odd_r', val:'15'},ms:{class:'odd_r', val:'1'},wt:{class:'odd_r', val:'1'},hp:{class:'odd_r', val:'93.75%'},cp:{class:'bgGreen', val:'93.75%'}}
+]
+}
+}
+},
+dummyEnd:0
+};
+processSummaryData(g_data);

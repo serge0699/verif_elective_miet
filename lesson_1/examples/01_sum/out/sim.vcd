@@ -1,0 +1,22 @@
+$date
+	Sat May  4 15:08:28 2024
+$end
+$version
+	QuestaSim Version 10.7c
+$end
+$timescale
+	1ns
+$end
+
+$scope module testbench $end
+$var reg 8 ! A [7:0] $end
+$var reg 8 " B [7:0] $end
+$var reg 8 # C [7:0] $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b10 !
+b11 "
+b101 #
+$end
