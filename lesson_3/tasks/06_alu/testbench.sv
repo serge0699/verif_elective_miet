@@ -172,8 +172,8 @@ module testbench;
             @(posedge clk);
         s_tvalid <= 1;
         s_tready <= 1;
-        s_tdata  <= p.tdata;
-        s_tid    <= p.tid;
+        s_tdata  <= pkt.tdata;
+        s_tid    <= pkt.tid;
         do begin
             @(posedge clk);
         end while(~s_tready);
