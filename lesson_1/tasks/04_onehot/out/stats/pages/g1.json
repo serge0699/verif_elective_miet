@@ -1,0 +1,18 @@
+var g_data = {
+g2:[{dummy:0},
+{name:'onehot_cg',f:1,type:1,id:5,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],parent:'4'},
+{name:'bin',f:1,type:2,id:7,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],cvg:'onehot_cg',parent:'5'}],
+c5:{name:'onehot_cg',type:1,pHash:'4',pPath:'/testbench',totals:[64,63,'98.43%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'in_cp',f:1,type:4,id:6,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],parent:'5'}],crx:[{dummy:0}]},
+c7:{name:'bin',type:2,pHash:'4',pPath:'/testbench',totals:[64,63,'98.43%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'in_cp',f:1,type:4,id:8,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],hasb:1,parent:'7'}],crx:[{dummy:0}]},
+g4:[{dummy:0},
+{name:'onehot_cg',f:1,type:1,id:5,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],parent:'4'},
+{name:'bin',f:1,type:2,id:7,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],cvg:'onehot_cg',parent:'5'}],
+c5:{name:'onehot_cg',type:1,pHash:'4',pPath:'/testbench',totals:[64,63,'98.43%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'in_cp',f:1,type:4,id:6,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],parent:'5'}],crx:[{dummy:0}]},
+c7:{name:'bin',type:2,pHash:'4',pPath:'/testbench',totals:[64,63,'98.43%','G',0,0,'0.00%','R'],cvp:[{dummy:0},
+{name:'in_cp',f:1,type:4,id:8,tb:'64',h:'63',m:'1',hp:'98.43%',cov:['98.43%','G'],g:'100.00%',gp:['98.43%','G'],hasb:1,parent:'7'}],crx:[{dummy:0}]},
+dummyEnd:0
+};
+processCovergroupsData(g_data);

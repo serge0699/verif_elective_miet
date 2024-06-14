@@ -1,0 +1,9 @@
+var g_data = {
+a10:{
+scopes:[{s:'4',b:'0',val:'testbench'},{val:'#anonblk#178839128#42#4#'},{link:'z.htm?f=0&s=10',val:'#ublk#178839128#42'}]
+,assertions:[{dummy:0},{cr:'m',c:'F',z:'immed__45',fc:'Rr',pc:'Gr',h0:'1',h1:'1'}
+],
+},
+dummyEnd:0
+};
+processAssertionsData(g_data,1);
