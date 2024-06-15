@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+localparam CLK_PERIOD = 10;
+
 // operator codes parameters
 localparam OPCODE_ADD = 0;  // tid = 0 : tdata_1  + tdata_2
 localparam OPCODE_SUB = 1;  // tid = 1 : tdata_1  - tdata_2
@@ -35,6 +37,7 @@ int add_error_cnt;          // Addition error counter
 int sub_error_cnt;          // Subtraction error counter
 int mul_error_cnt;          // Multiplication error counter
 int sll_error_cnt;          // Shift left logic error counter
+int good_calc_cnt;          // Goog calculation counter
 int all_error_cnt;          // Number of error counter
 
 module testbench;
@@ -94,6 +97,13 @@ module testbench;
     mailbox#(packet) in_mbx  = new();
     mailbox#(packet) out_mbx = new();
 
+    // Генерация тактового сигнала
+    initial begin
+        clk <= 0;
+        forever begin
+            #(CLK_PERIOD/2) clk <= ~clk;
+        end
+    end
 
     //---------------------------------
     // Методы
@@ -111,6 +121,10 @@ module testbench;
         repeat(timeout_cycles) @(posedge clk);
         $stop();
     endtask
+
+    initial begin
+
+    end
 
     // TODO:
     // Реализуйте тестовое окружение для проверки ALU.
@@ -132,7 +146,7 @@ module testbench;
     task reset_master();
         wait(~aresetn);
         s_tvalid <= 0;
-        s_tready <= 0;
+        // s_tready <= 0;
         s_tdata  <= 0;
         s_tid    <= 0;
         wait(aresetn);
@@ -171,7 +185,7 @@ module testbench;
         repeat(pkt.delay)
             @(posedge clk);
         s_tvalid <= 1;
-        s_tready <= 1;
+        // s_tready <= 1;
         s_tdata  <= pkt.tdata;
         s_tid    <= pkt.tid;
         do begin
@@ -229,9 +243,9 @@ module testbench;
     task reset_slave();
         wait(~aresetn);
         m_tready <= 0;
-        m_tvalid <= 0;
-        m_tdata  <= 0;
-        m_tid    <= 0;
+        // m_tvalid <= 0;
+        // m_tdata  <= 0;
+        // m_tid    <= 0;
         wait(aresetn);
     endtask : reset_slave
 
@@ -241,12 +255,12 @@ module testbench;
         int delay_max  = 10
     );
         int delay;
-        delay = $urandom(delay_min, delay_max);
+        delay = $urandom_range(delay_min, delay_max);
         repeat(delay) @(posedge clk);
-        m_tvalid <= 1;
+        // m_tvalid <= 1;
         m_tready <= 1;
         @(posedge clk);
-        m_tvalid <= 0;
+        // m_tvalid <= 0;
         m_tready <= 0;
     endtask : drive_slave
 
@@ -390,6 +404,7 @@ module testbench;
                     SUB_ERROR_CODE: sub_error_cnt++;
                     MUL_ERROR_CODE: mul_error_cnt++;
                     SLL_ERROR_CODE: sll_error_cnt++;
+                    GOOD_TDATA:     good_calc_cnt++;
                     default: begin
                         $fatal("Unknown tdata_mismatch value = 0x%0h inside metrics_collector().", tdata_mismatch);
                         return 1;
