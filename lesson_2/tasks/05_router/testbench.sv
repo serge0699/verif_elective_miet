@@ -82,14 +82,8 @@ module testbench;
         // Входные воздействия опишите здесь.
         wait(aresetn);
 
-        // repeat(5) begin
-        //     @(posedge clk);
-        //     in  <= $urandom();
-        //     sel[3:0] <= {2'd3, 2'd2, 2'd1, 2'd0};
-        // end
-
-        rand_transact($urandom_range(15, 30));
-
+        // gen_tr_unique_sel($urandom_range(15, 30));
+        
         show_stat();
         $stop();
     end
@@ -183,8 +177,30 @@ module testbench;
         end
     end
 
-    task rand_transact(int num_of_transactions = 1);
-        repeat(num_of_transactions) begin
+    // task check_tr();
+    //     wait(aresetn);
+
+    //     mon2chk.get(pkt_prev);
+
+    //     forever begin
+    //         mon2chk.get(pkt_cur);
+
+    //         is_correctness_unknown = 0;
+    //         is_bad_transact        = 0;
+
+    //         sel_all_cur = pkt_prev.sel;
+    //         in_all_cur  = pkt_prev.in;
+    //         out_all_cur = pkt_cur.out;
+
+
+
+    //         pkt_prev = pkt_cur;
+    //     end
+    // endtask : check_tr
+
+    // Generate transaction with unique select signal
+    task gen_tr_unique_sel(int tr_amount = 1);
+        repeat(tr_amount) begin
             logic [3:0][1:0] tmp;
             // $display("(%0t) [TEST] rand_trans before posedge", $time());
             @(posedge clk);
@@ -193,7 +209,31 @@ module testbench;
             std::randomize(tmp) with { unique{ tmp[0], tmp[1], tmp[2], tmp[3] }; };
             sel <= tmp;
         end
-    endtask : rand_transact
+    endtask : gen_tr_unique_sel
+
+    // task gen_tr(int tr_amount = 1);
+    //     logic [3:0] tmp;
+    //     repeat(tr_amount) begin
+    //         @(posedge clk);
+    //         in  <= $urandom();
+    //         tmp = $urandom();
+    //         for(int i = 0; i < 4; i++)
+    //             for(int j = i+1; j < 3; j++)
+    //                 if(tmp[i] === tmp[j])
+    //                     sel[]
+
+    //         // sel <= $urandom();
+    //     end
+    // endtask : gen_tr
+
+    task gen_all_cases;
+        for(int i = 0; i < 16; i++) begin
+            for(int j = 0; j < 16; k++) begin
+                in  <= i;
+                sel <= j;
+            end
+        end
+    endtask
 
     function void show_stat();
         $display(
