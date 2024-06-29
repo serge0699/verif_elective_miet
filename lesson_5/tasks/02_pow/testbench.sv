@@ -71,8 +71,12 @@ module testbench;
     // который в конце каждого пакета делает
     // дополнительную задержку в 100 тактов.
 
-    class /* ?? */ extends master_driver_base;
-
+    class master_driver_delay_after_tlast extends master_driver_base;
+        virtual task drive_master(packet p);
+            super.drive_master(p);
+            if(p.tlast)
+                repeat(100) @(posedge vif.clk);
+        endtask
     endclass
 
 
@@ -82,9 +86,24 @@ module testbench;
     // Обратите внимание на то, что при переопределении
     // драйвера поля нового драйвера необходимо также
     // проинициализировать.
+    class test_delay_after_tlast extends test_base;
+        master_driver_delay_after_tlast master_driver;
+        function new(
+            virtual axis_intf intf_master,
+            virtual axis_intf intf_slave
+        );
+            super.new(intf_master, intf_slave);
 
-    class /* ?? */ extends test_base;
+            // replace the driver
+            master_driver         = new();
+            master_driver.cfg     = cfg;
+            master_driver.gen2drv = gen2drv;
+            master_driver.vif     = intf_master;
 
+            env.master.master_driver = master_driver;
+
+
+        endfunction
     endclass
 
 
@@ -104,7 +123,7 @@ module testbench;
     // Запустите новый тестовый сценарий
 
     initial begin
-        /* ?? */ test;
+        test_delay_after_tlast test;
         test = new(intf_master, intf_slave);
         fork
             reset();
