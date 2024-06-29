@@ -94,15 +94,15 @@ module testbench;
         );
             super.new(intf_master, intf_slave);
 
-            // replace the driver
             master_driver         = new();
+
+            // Reconnect config class, mailbox, interface
             master_driver.cfg     = cfg;
             master_driver.gen2drv = gen2drv;
             master_driver.vif     = intf_master;
 
+            // Replace the driver
             env.master.master_driver = master_driver;
-
-
         endfunction
     endclass
 
