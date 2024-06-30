@@ -122,10 +122,6 @@ module testbench;
         $stop();
     endtask
 
-    initial begin
-
-    end
-
     // TODO:
     // Реализуйте тестовое окружение для проверки ALU.
     // Рекомендуется использовать подход, основанный
@@ -162,7 +158,11 @@ module testbench;
         int operand1;
         int operand2;
 
-        if(!std::randomize(pkt) with {pkt.delay inside {[delay_min:delay_max]};}) begin
+        if(!std::randomize(pkt) with {
+            pkt.delay inside {[delay_min:delay_max]};
+            pkt.tid   inside {[0:3]};
+        })
+        begin
             $error("Cannot randomize a packet!");
             $finish();
         end
@@ -185,7 +185,6 @@ module testbench;
         repeat(pkt.delay)
             @(posedge clk);
         s_tvalid <= 1;
-        // s_tready <= 1;
         s_tdata  <= pkt.tdata;
         s_tid    <= pkt.tid;
         do begin
@@ -243,9 +242,6 @@ module testbench;
     task reset_slave();
         wait(~aresetn);
         m_tready <= 0;
-        // m_tvalid <= 0;
-        // m_tdata  <= 0;
-        // m_tid    <= 0;
         wait(aresetn);
     endtask : reset_slave
 
@@ -257,10 +253,8 @@ module testbench;
         int delay;
         delay = $urandom_range(delay_min, delay_max);
         repeat(delay) @(posedge clk);
-        // m_tvalid <= 1;
         m_tready <= 1;
         @(posedge clk);
-        // m_tvalid <= 0;
         m_tready <= 0;
     endtask : drive_slave
 
@@ -307,7 +301,7 @@ module testbench;
 // ==================== Check tasks/functions ====================
 
 // -------------------- compare_packets (check) --------------------
-    function compare_packets(
+    function int compare_packets(
         input   packet in_1,
         input   packet in_2,
         input   packet out,
@@ -340,7 +334,7 @@ module testbench;
     endfunction : compare_packets
 
 // -------------------- show_comparison_info --------------------
-    function show_comparison_info(
+    function int show_comparison_info(
         input packet in_1,
         input packet in_2,
         input packet out,
@@ -369,17 +363,13 @@ module testbench;
                     end
                 endcase
                 case(tdata_mismatch)
-                    ADD_ERROR_CODE: $error({"[%0t] Wrong ADD calculation:\n",
-                                        "1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d"},
+                    ADD_ERROR_CODE: $error("[%0t] Wrong ADD calculation:\n1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d",
                                         $time(), in_1.tdata, in_2.tdata, (in_1.tdata +  in_2.tdata), out.tdata);
-                    SUB_ERROR_CODE: $error({"[%0t] Wrong SUB calculation:\n",
-                                        "1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d"},
+                    SUB_ERROR_CODE: $error("[%0t] Wrong SUB calculation:\n1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d",
                                         $time(), in_1.tdata, in_2.tdata, (in_1.tdata -  in_2.tdata), out.tdata);
-                    MUL_ERROR_CODE: $error({"[%0t] Wrong MUL calculation:\n",
-                                        "1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d"},
+                    MUL_ERROR_CODE: $error("[%0t] Wrong MUL calculation:\n1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d",
                                         $time(), in_1.tdata, in_2.tdata, (in_1.tdata *  in_2.tdata), out.tdata);
-                    SLL_ERROR_CODE: $error({"[%0t] Wrong SLL calculation:\n",
-                                        "1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d"},
+                    SLL_ERROR_CODE: $error("[%0t] Wrong SLL calculation:\n1st operand:in_1.tdata=%0d; in_2.tdata=%0d; expected=%0d; out.tdata=%0d",
                                         $time(), in_1.tdata, in_2.tdata, (in_1.tdata << in_2.tdata), out.tdata);
                     GOOD_TDATA:     $display("[%0t] Good %s operation!", $time(), op_type);
                     default: begin
@@ -453,40 +443,27 @@ module testbench;
 
         forever begin
             in_mbx.get(pkt_oper_2);
-            out_mbx.get(pkt_result);
-
-            void'(compare_packets(
-                    pkt_oper_1,
-                    pkt_oper_2,
-                    pkt_result,
-                    tid_check_res,
-                    tdata_check_res,
-                    is_not_a_pair));
-
-            void'(metrics_collector(tid_check_res, tdata_check_res));
-
-            if((tid_check_res == GOOD_TID) && (tdata_check_res == GOOD_TDATA)) begin
-                $display("[%0t] GOOD OPERATION", $time());
-                in_mbx.get(pkt_oper_1);
-                continue;
-            end else if(is_not_a_pair) begin
-                $display("[%0t] NOT A PAIR -> continue", $time());
-                // same_tid_in_row = 0;
-                pkt_oper_1      = pkt_oper_2;
-                continue;
-            end else begin
-                $display("[%0t] BAD OPERATION", $time());
-                in_mbx.get(pkt_oper_1);
-                continue;
+            if(pkt_oper_1.tid === pkt_oper_2.tid) begin
+                out_mbx.get(pkt_result);
+                void'(compare_packets(
+                        pkt_oper_1,
+                        pkt_oper_2,
+                        pkt_result,
+                        tid_check_res,
+                        tdata_check_res,
+                        is_not_a_pair));
+                void'(metrics_collector(tid_check_res, tdata_check_res));
+                void'(show_comparison_info(
+                    pkt_oper_1,       // input
+                    pkt_oper_2,       // input
+                    pkt_result,       // input
+                    tid_check_res,    // input
+                    tdata_check_res   // input
+                ));
             end
 
-            void'(show_comparison_info(
-                pkt_oper_1,       // input
-                pkt_oper_2,       // input
-                pkt_result,       // input
-                tid_check_res,    // input
-                tdata_check_res   // input
-            ));
+            pkt_oper_1 = pkt_oper_2;
+
         end
     endtask : do_check
 
@@ -505,6 +482,9 @@ module testbench;
             do_check    (gen_pkt_amount);
             timeout     (timeout_cycles);
         join
+
+        @(posedge clk);
+        $finish("Finish by end of test");
     endtask : test
 
     initial begin
