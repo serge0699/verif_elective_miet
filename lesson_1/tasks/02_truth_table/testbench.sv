@@ -35,7 +35,7 @@ module testbench;
     // Прототип проверки:
     //
     // initial begin
-    //     logic _r;
+    //     logic exp_res;
     //     while(1) begin
     //         <ожидание event ev>;
     //         <вычисления>
@@ -56,7 +56,27 @@ module testbench;
 
     // Пишите внутри этого блока
     //------------------------------------------------------------
+    logic exp_res;
+    logic is_err;
 
+    assign is_err = r ^ exp_res;
+
+    initial begin
+        int err_cnt;
+        while(1) begin
+            @ ev;
+            exp_res = ref_func(a, b, c);
+            if(r !== exp_res) begin
+                err_cnt++;
+                $display("------------------------------------------------------");
+                $display("(%0t) Miscompare! (a,b,c)=(%0b,%0b,%0b); res: %0b, exp: %0b;", $time(), a, b, c, r, exp_res);
+            end
+        end
+    end
+
+    function logic ref_func(logic a, b, c);
+        ref_func = ((~a & ~b & c) | (~a & b & ~c) | (a & ~b & ~c) | (a & ~b & c));
+    endfunction : ref_func
     //------------------------------------------------------------
 
 endmodule

@@ -117,8 +117,15 @@ module testbench;
         int delay_min  = 0,
         int delay_max  = 10
     );
-        repeat(pkt_amount) begin
+        // repeat(pkt_amount) begin
+        //     gen_master(size_min, size_max, delay_min, delay_max);
+        // end
+
+        repeat(pkt_amount/2) begin
             gen_master(size_min, size_max, delay_min, delay_max);
+        end
+        repeat(pkt_amount/2) begin
+            gen_master(size_min, size_max, delay_min*5, delay_max*5);
         end
     endtask
 
