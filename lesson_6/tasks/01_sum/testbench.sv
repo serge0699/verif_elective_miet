@@ -28,9 +28,21 @@ module testbench;
 
     covergroup sum_cg @(posedge clk);
         // Пишите здесь
-        // ...
+        a_cg: coverpoint a {
+            bins b1 [] = {[0:$]};
+        }
+        b_cg: coverpoint b {
+            bins b1 [] = {[0:$]};
+        }
+
+        // coverpoint a;
+        // coverpoint b;
+        // options.cover
     endgroup
 
     sum_cg cg = new();
+
+// a - 67-111
+// b - 126-217
 
 endmodule
