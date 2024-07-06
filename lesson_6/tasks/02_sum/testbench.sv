@@ -32,6 +32,40 @@ module testbench;
         // TODO:
         // Добавьте недостающие входные воздействия здесь
         // ...
+        fork
+            begin
+                @(posedge clk);
+                a <= 0;
+                @(posedge clk);
+                a <= 255;
+                @(posedge clk);
+                a <= $urandom_range(16, 31);
+                @(posedge clk);
+                a <= $urandom_range(32, 47);
+                @(posedge clk);
+                a <= 49;
+                @(posedge clk);
+                a <= $urandom_range(150, 250) | 1;
+                @(posedge clk);
+                a <= $urandom();
+            end
+            begin
+                @(posedge clk);
+                b <= 255;
+                @(posedge clk);
+                b <= $urandom_range(64, 79);
+                @(posedge clk);
+                b <= $urandom_range(80, 95);
+                @(posedge clk);
+                b <= 75;
+                @(posedge clk);
+                b <= 52;
+                @(posedge clk);
+                b <= 99;
+                @(posedge clk);
+                b <= $urandom_range(120, 130) | 1;
+            end
+        join
         @(posedge clk);
         $finish();
     end
