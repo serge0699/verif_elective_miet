@@ -171,8 +171,11 @@ module testbench;
     initial begin
         reset_master();
         @(posedge clk);
-        repeat(1000) begin
+        repeat(500) begin
             drive_master($urandom_range(0, 10));
+        end
+        repeat(500) begin
+            drive_master($urandom_range(0, 50));
         end
         $stop();
     end
