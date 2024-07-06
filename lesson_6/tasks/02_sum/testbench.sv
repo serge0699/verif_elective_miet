@@ -68,6 +68,7 @@ module testbench;
         join
         @(posedge clk);
         $finish();
+        ->> user_done;
     end
 
     // TODO:
