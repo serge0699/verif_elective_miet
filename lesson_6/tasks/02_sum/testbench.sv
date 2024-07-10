@@ -32,8 +32,7 @@ module testbench;
         // TODO:
         // Добавьте недостающие входные воздействия здесь
         // ...
-        @(posedge clk);
-        $finish();
+        ->> user_done;
     end
 
     // TODO:

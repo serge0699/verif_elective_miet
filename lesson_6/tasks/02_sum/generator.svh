@@ -17,7 +17,7 @@
     end
 
     // Генерация входных сигналов
-    event done;
+    event done, user_done; int cnt;
     initial begin
         wait(aresetn);
         @(posedge clk);
@@ -37,4 +37,15 @@
         end
         @(posedge clk);
         ->> done;
+        fork
+            forever begin
+                @(posedge clk);
+                cnt += 1;
+            end
+            @(user_done);
+        join_any
+        $display("----------------------------------",    );
+        $display("Cycles for user stimulus: %0d     ", cnt);
+        $display("----------------------------------",    );
+        $finish();
     end
