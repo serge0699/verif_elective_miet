@@ -61,10 +61,19 @@ module testbench;
             bins b2 [2] = {1, 4};
         }
         aXb: cross a_cp, b_cp {
-            bins a_b2_1 = binsof(a_cp.b1) intersect {1};
+            bins        a_b2_1 = binsof(a_cp.b1) intersect {1};
+            ignore_bins ignore = binsof(a_cp.b1) intersect {2} || binsof(a_cp.b2);
         }
     endgroup
 
     sum_cg cg = new();
 
 endmodule
+
+// 2 2
+// 2 1
+// 2 4
+// 3 2
+// 3 1
+// 3 4
+
