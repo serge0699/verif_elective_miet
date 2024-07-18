@@ -90,33 +90,3 @@ module testbench;
 
 
 endmodule
-
-module tb_alu();
-
-    import alu_opcodes_pkg::*;
-
-    parameter TEST_VALUES     = 1000;
-
-    logic clk = 0;
-    always #5ns clk = ~clk;
-
-    logic [4:0]  operator_i;
-    logic [31:0] operand_a_i;
-    logic [31:0] operand_b_i;
-
-    ...
-
-    task result_test();
-  repeat(TEST_VALUES)
-  begin
-    operator_i  = $urandom_range(4'b1111);
-    operand_a_i = $urandom();
-    operand_b_i = $urandom();
-    @(posedge clk);
- end
-endtask
-
-
-    ...
-
-endmodule
