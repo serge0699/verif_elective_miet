@@ -32,6 +32,104 @@ module testbench;
         // TODO:
         // Добавьте недостающие входные воздействия здесь.
         // ...
+        // cross 4 bin high max zero
+        // @(posedge clk);
+        // a <= 8'd255;
+        // b <= 8'd0;
+        // cross 4 bin high max max: done cross 4
+        @(posedge clk);
+        b <= 8'd255;
+        a <= 8'd255;
+        // cross 3 ones
+        @(posedge clk);
+        a <= 8'd1;
+        b <= 8'd1;
+        //cross 3 magic 180 max
+        @(posedge clk);
+        a <= 8'd180;
+        b <= 8'd255;
+        //cross 3 magic 9 max
+        @(posedge clk);
+        a <= 8'd9;
+        //cross 3 zero zero
+        @(posedge clk);
+        a <= 8'd0;
+        b <= 8'd0;
+        //cross 3 magic 9 zero
+        @(posedge clk);
+        a <= 8'd9;
+        b <= 8'd0;
+        //cross 3 zero one
+        @(posedge clk);
+        a <= 8'd0;
+        b <= 8'd1;
+        //cross 3 magic 9 one
+        @(posedge clk);
+        a <= 8'd9;
+        b <= 8'd1;
+         //cross 3 magic 1 one cross 3 done
+        @(posedge clk);
+        a <= 8'd1;
+        b <= 8'd1;
+         //cross 2 done
+        b <= 8'd0;
+        for (int i=172; i<255; i=i+1) begin
+           @(posedge clk);
+           a <= i; 
+        end 
+        //cross 1 done
+        @(posedge clk);  
+        a <= 255;
+        for (int j=64; j<172; j=j+1) begin
+        
+           @(posedge clk);
+           b <= j; 
+        end 
+         
+         for (int l=0; l<71; l=l+2) begin
+           @(posedge clk);
+           a <= 100 + l;
+           b <= 173 + l; 
+        end
+        @(posedge clk);
+        a <= 8'd2;
+        b <= 8'd245;
+        @(posedge clk);
+        a <= 8'd3;
+        b <= 8'd247;
+        @(posedge clk);
+        a <= 8'd4;
+        b <= 8'd249;
+        @(posedge clk);
+        a <= 8'd5;
+        b <= 8'd251;
+        @(posedge clk);
+        a <= 8'd6;
+        b <= 8'd253;
+        @(posedge clk);
+        a <= 8'd7;
+        b <= 8'd50;
+        @(posedge clk);
+        a <= 8'd8;
+        b <= 8'd51;
+
+        for (int c=0; c<40; c=c+1) begin
+           @(posedge clk);
+           a <= 10 + c;
+           b <= 52 + c; 
+        end
+
+
+            
+
+
+
+        
+      
+        
+
+        
+    
         
         @(posedge clk);
         ->> user_done;
