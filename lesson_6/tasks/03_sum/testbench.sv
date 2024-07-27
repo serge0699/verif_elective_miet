@@ -27,12 +27,77 @@ module testbench;
     // Добавьте генерацию недостающих входных значений
     // и добейтесь покрытия в 100%.
 
+    // 283 cycles synth school best record
+    int a_cycles = 0;
+    int b_cycles = 0;
+
+    task send_a (int a_val);
+        @(posedge clk);
+        a <= a_val;
+        a_cycles++;
+    endtask
+
+    task send_b (int b_val);
+        @(posedge clk);
+        b <= b_val;
+        b_cycles++;
+    endtask
+
+    task send_a_b (int a_val, int b_val);
+        fork
+            send_a(a_val);
+            send_b(b_val);
+        join
+    endtask
+
     initial begin
         @done;
         // TODO:
         // Добавьте недостающие входные воздействия здесь.
-        // ...
-        
+        $display("[%0t] Direct tests are running.", $time());
+        fork
+            begin
+                // a_i_cp.low in [2:49]
+                for(int i = 2; i <= 49; i++)
+                    send_a(i);
+
+                // a_i_cp.mid even in [100:170]
+                for(int i = 100; i <= 170; i += 2)
+                    send_a(i);
+            end
+
+            begin
+                // b_i_cp.low [50:63]
+                for(int i = 50; i <= 63; i++)
+                    send_b(i);
+
+                // b_i_cp.high odd in [173:253]
+                for(int i = 173; i <= 253; i += 2)
+                    send_b(i);
+            end
+        join
+
+        // cross_1 [<MAX:mid[64]> - <MAX:mid[171]>]
+        for(int i = 64; i <= 171; i++)
+            send_a_b(255, i);
+
+        // cross_2 [<HIGH[172]:0> - <HIGH[255]:0>]
+        for(int i = 172; i <= 255; i++)
+            send_a_b(i, 0);
+
+        // cross_3
+        begin
+            send_a_b(1,   1  );
+            send_a_b(9,   1  );
+            send_a_b(0,   1  );
+            send_a_b(9,   0  );
+            send_a_b(0,   0  );
+            send_a_b(9,   255);
+            send_a_b(180, 255);
+            send_a_b(255, 255);
+        end
+
+        $display("a_cycles = %0d, b_cycles = %0d", a_cycles, b_cycles);
         @(posedge clk);
         ->> user_done;
     end
@@ -85,17 +150,17 @@ module testbench;
         // Этот cross создает пересечение всех bins из a_s_cp и a_s_cp.
         cross_1: cross a_s_cp, b_i_cp {
             // Этот фильтр исключает (ignore) все пересечения, в которых есть b - low и b - high.
-            ignore_bins a_l_h = binsof(b_i_cp.low) || binsof(b_i_cp.high);
+            ignore_bins b_l_h = binsof(b_i_cp.low) || binsof(b_i_cp.high);
             // А что исключает этот?
-            ignore_bins a_m_b_m = binsof(a_s_cp.one);
+            ignore_bins a_m_b_m = binsof(a_s_cp.one); // it excludes a = 1 bin
             // А этот?
-            ignore_bins a_mag_b_m = binsof(a_s_cp.magics) && binsof(b_i_cp.mid);
+            ignore_bins a_mag_b_m = binsof(a_s_cp.magics) && binsof(b_i_cp.mid); // excludes [1, 64], ... [1, 171]; [9, 64] ... [9, 171]; ...
         }
 
         // Этот cross создает пересечение всех bins из a_i_cp и b_s_cp.
         cross_2: cross a_i_cp, b_s_cp {
             // Этот фильтр исключает все пересечения, в которых есть a - low и a - mid.
-            ignore_bins a_low_high = binsof(a_i_cp.low) || binsof(a_i_cp.mid);
+            ignore_bins a_low_mid = binsof(a_i_cp.low) || binsof(a_i_cp.mid);
             // А что исключает этот?
             ignore_bins a_mid_b_low = binsof(a_i_cp.high) && binsof(b_s_cp.max);
         }
@@ -117,10 +182,10 @@ module testbench;
         // Да, тройное перекрестное покрытие тоже возможно.
         // Этот cross создает пересечение всех bins из a_in_cp, a_s_cp и b_s_cp.
         // Попробуйте разобраться (GUI в помощь).
-        cross_4: cross a_in_cp, a_s_cp, b_s_cp{
+        cross_4: cross a_in_cp, a_s_cp, b_s_cp {
             ignore_bins a_magics_zero = binsof(a_s_cp.magics) || binsof(a_s_cp.zero);
-            ignore_bins a_low         = binsof(a_in_cp.mid);
-            ignore_bins b_one_zero    = binsof(b_s_cp.one);
+            ignore_bins a_mid         = binsof(a_in_cp.mid);
+            ignore_bins b_one         = binsof(b_s_cp.one);
             ignore_bins a_high_one    = binsof(a_in_cp.high) && binsof(a_s_cp.one);
             ignore_bins a_low_max     = binsof(a_in_cp.low) && binsof(a_s_cp.max);
         }

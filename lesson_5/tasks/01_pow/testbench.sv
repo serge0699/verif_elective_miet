@@ -87,9 +87,9 @@ module testbench;
         rand int master_size_min      = 1;
         rand int master_size_max      = 10;
         rand int master_delay_min     = 0;
-        rand int master_delay_max     = 10;
+        rand int master_delay_max     = 0;
         rand int slave_delay_min      = 0;
-        rand int slave_delay_max      = 10;
+        rand int slave_delay_max      = 0;
              int test_timeout_cycles  = 10000000;
 
         constraint gen_pkt_amount_c {
@@ -518,8 +518,17 @@ module testbench;
     // При выполнении воспользуйтесь написанием дополнительных
     // constraints.
 
-    class /* ?? */ extends test_cfg_base;
+    class test_cfg_bottleneck extends test_cfg_base;
 
+        constraint non_zero_delays_c {
+            master_delay_min > 0;
+            slave_delay_min  > 0;
+        }
+
+        constraint more_often_master_c {
+            5 * master_delay_min == slave_delay_min;
+            5 * master_delay_max == slave_delay_max;
+        }
     endclass
     
     // TODO:
@@ -528,8 +537,27 @@ module testbench;
     // Для подмены конфигурации используйте переопределение
     // конструктора 'new()'.
 
-    class /* ?? */ extends test_base;
+    class test_with_bottleneck extends test_base;
 
+        function new();
+            test_cfg_bottleneck cfg_bottleneck = new();
+            super.new();
+            $display(cfg);
+            $display(env.master.master_gen.cfg);
+            $display(env.slave.slave_driver.cfg);
+            $display(env.check.cfg);
+            // cfg_bottleneck = new();
+            if(!cfg_bottleneck.randomize())
+                $error("cannot randomize test_cfg_bottleneck");
+            env.master.master_gen.cfg  = cfg_bottleneck;
+            env.slave.slave_driver.cfg = cfg_bottleneck;
+            env.check.cfg              = cfg_bottleneck;
+            // cfg = cfg_bottleneck;
+            $display(cfg);
+            $display(env.master.master_gen.cfg);
+            $display(env.slave.slave_driver.cfg);
+            $display(env.check.cfg);
+        endfunction
     endclass
 
     // TODO:
@@ -539,7 +567,7 @@ module testbench;
     //   make EXAMPLE=01_pow SIM_OPTS="-gui -sv_seed <значение-seed>" 
 
     initial begin
-        /* ?? */ test;
+        test_with_bottleneck test;
         test = new();
         fork
             reset();

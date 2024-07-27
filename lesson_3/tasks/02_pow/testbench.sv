@@ -105,9 +105,11 @@ module testbench;
     // drive_master(). Реализуйте задержку для выставления
     // m_tready. Обратите внимание, что сигнал должен при-
     // нимать теперь не случайное значение, а значение 1
-    task drive_slave();
+    task drive_slave(int delay = 0);
+        repeat(delay) @(posedge clk);
+        m_tready <= 1;
         @(posedge clk);
-        m_tready <= $urandom();
+        m_tready <= 0;
     endtask
 
     // Мониторинг входов
@@ -169,8 +171,11 @@ module testbench;
     initial begin
         reset_master();
         @(posedge clk);
-        repeat(1000) begin
+        repeat(500) begin
             drive_master($urandom_range(0, 10));
+        end
+        repeat(500) begin
+            drive_master($urandom_range(0, 50));
         end
         $stop();
     end
@@ -185,7 +190,7 @@ module testbench;
     initial begin
         reset_slave();
         forever begin
-            drive_slave();
+            drive_slave($urandom_range(0, 10));
         end
     end
 
