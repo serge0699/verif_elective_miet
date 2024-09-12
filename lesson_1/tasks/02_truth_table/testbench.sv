@@ -56,7 +56,19 @@ module testbench;
 
     // Пишите внутри этого блока
     //------------------------------------------------------------
-
+       initial begin
+         logic _r;
+         while(1) begin
+            @ev;
+            _r = (a & ~b | ~b & c | ~ a & b & ~c);
+           if( r !== _r ) begin
+                 $display("BAD, a b c | _r r");
+                 $display("     %1b %1b %1b | %1b %1b",
+                     a, b, c, _r, r);
+                  
+           end
+        end
+       end
     //------------------------------------------------------------
 
 endmodule

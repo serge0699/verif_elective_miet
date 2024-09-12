@@ -33,8 +33,64 @@ module testbench;
         // Добавьте недостающие входные воздействия здесь.
         // ...
         
+    for(int i = 2; i <= 49; i = i + 1) begin
         @(posedge clk);
-        ->> user_done;
+        a <= i;
+    end
+
+    
+    for(int i = 100; i <= 170; i = i + 2) begin
+        @(posedge clk);
+        a <= i;
+    end
+
+   
+    for(int i = 50; i <= 63; i = i + 1) begin
+        @(posedge clk);
+        b <= i;
+    end
+
+ 
+    for(int i = 173; i <= 253; i = i + 2) begin
+        @(posedge clk);
+        b <= i;
+    end
+
+    // Генерация значений для cross_1 
+    for(int i = 64; i <= 171; i = i + 1) begin
+        @(posedge clk);
+        a <= 255;
+        b <= i;
+    end
+
+    // Генерация значений для cross_2 
+    for(int i = 172; i <= 255; i = i + 1) begin
+        @(posedge clk);
+        a <= i;
+        b <= 0;
+    end
+
+    // Генерация значений для cross_3
+    @(posedge clk);
+    a <= 1; b <= 1;
+    @(posedge clk);
+    a <= 9; b <= 1;
+    @(posedge clk);
+    a <= 0; b <= 1;
+    @(posedge clk);
+    a <= 9; b <= 0;
+    @(posedge clk);
+    a <= 0; b <= 0;
+    @(posedge clk);
+    a <= 9; b <= 255;
+    @(posedge clk);
+    a <= 180; b <= 255;
+    @(posedge clk);
+    a <= 255; b <= 255;
+
+        
+    @(posedge clk);
+    ->> user_done;
     end
 
     // TODO:
@@ -82,14 +138,14 @@ module testbench;
 
         // Перекрестное покрытие.
 
-        // Этот cross создает пересечение всех bins из a_s_cp и a_s_cp.
+        // Этот cross создает пересечение всех bins из a_s_cp и  b_i_cp .
         cross_1: cross a_s_cp, b_i_cp {
             // Этот фильтр исключает (ignore) все пересечения, в которых есть b - low и b - high.
             ignore_bins a_l_h = binsof(b_i_cp.low) || binsof(b_i_cp.high);
             // А что исключает этот?
-            ignore_bins a_m_b_m = binsof(a_s_cp.one);
+            ignore_bins a_m_b_m = binsof(a_s_cp.one); //  исключает 1 
             // А этот?
-            ignore_bins a_mag_b_m = binsof(a_s_cp.magics) && binsof(b_i_cp.mid);
+            ignore_bins a_mag_b_m = binsof(a_s_cp.magics) && binsof(b_i_cp.mid); // исключает значения когда a = (1, 9 , 100) and в интервалe b [64:171]
         }
 
         // Этот cross создает пересечение всех bins из a_i_cp и b_s_cp.
@@ -97,7 +153,7 @@ module testbench;
             // Этот фильтр исключает все пересечения, в которых есть a - low и a - mid.
             ignore_bins a_low_high = binsof(a_i_cp.low) || binsof(a_i_cp.mid);
             // А что исключает этот?
-            ignore_bins a_mid_b_low = binsof(a_i_cp.high) && binsof(b_s_cp.max);
+            ignore_bins a_mid_b_low = binsof(a_i_cp.high) && binsof(b_s_cp.max); // Этот фильтр исключает все пересечения, в которых есть a - high и b - max.
         }
 
         // Этот cross создает пересечение всех bins из a_i_cp и b_s_cp.
@@ -109,9 +165,9 @@ module testbench;
             bins zero_max = binsof(a_s_cp.zero) && binsof(b_s_cp.max ) ||
                             binsof(a_s_cp.max ) && binsof(b_s_cp.zero);
             // А что выбирает такой фильтр?
-            bins two_max  = binsof(a_s_cp.max ) && binsof(b_s_cp.max);
+            bins two_max  = binsof(a_s_cp.max ) && binsof(b_s_cp.max);// Этот фильтр выбирает пересечения, где и a и b равны 1
             // А что исключает этот?
-            ignore_bins max_one = binsof(a_s_cp.max ) && binsof(b_s_cp.one);
+            ignore_bins max_one = binsof(a_s_cp.max ) && binsof(b_s_cp.one);// Этот фильтр исключает пересечения, где a равно 255, а b равно 1
         }
 
         // Да, тройное перекрестное покрытие тоже возможно.
